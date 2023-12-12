@@ -1,0 +1,506 @@
+<section class="slides-v1">
+  <h1>V1: Scaling whole chart down</h1>
+  <ul>
+    <li>Chart is scaled down to fit parent container as is without any additional transformations being applied</li>
+    <li>For web-based visualizations:
+      <ul><li>Giving chart container relative width to parent container</li></ul>
+    </li>
+
+  </ul>
+  <div class="flex-cols-container">
+    <ul class="flex-cols-col">
+      <li>
+        Advantages:
+        <ul>
+          <li>Most straightforward and easiest solution</li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="flex-cols-col">
+      <li>
+        Disadvantages:
+        <ul>
+          <li>Components become unreadable if used too excessively</li>
+          <li>Uni directional scaling eventually leads to unacceptable distortions of visualization</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+
+<section class="slides-v2">
+<h1>V2: Repositioning Element Labels</h1>
+<ul>
+  <li>During development visualization is inspected and labels adjusted for different visualization widths.</li>
+  <li>For web-based visualizations:
+    <ul>
+      <li>Media queries</li>
+      <li>Size container queries</li>
+      <li>CSS rotate and translate properties</li>
+    </ul>
+  </li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Can solve cumbersome clutter and intersection problems</li>
+        <li>CSS technologies or responsive visualization tools often allow realignment of whole groups of labels</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Adding too many single exceptions for repositioning can get cumbersome</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-v3">
+<h1>V3: Using Tooltips and Hiding Element Labels</h1>
+<ul>
+  <li>Labels of elements are hidden either for specific visualization widths or in general.</li>
+  <li>Interaction with control elements or visualization elements directly triggers tooltips becoming visible</li>
+  <li>For web-based visualizations:
+    <ul>
+      <li>CSS hover pseudo selector (works via touch interactions on mobile devices)</li>
+    </ul>
+  </li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Saves space on devices which narrow screen sizes</li>
+        <li>Intersection and clutter of labels not possible anymore</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>User may overlook possibility of displaying tooltips</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-v4">
+<h1>V4: Rotating Axis Labels</h1>
+<ul>
+  <li>Rotate labels of horizontal and/or vertical axis as visualization gets narrower</li>
+  <li>For web-based visualizations:
+    <ul>
+      <li>JavaScript Event Listener and algorithm for detecting appropriate angle</li>
+      <li>Application of rotation via CSS rotate property</li>
+    </ul>
+  </li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Prevents clutter and intersection of horizontal axis labels</li>
+        <li>Preserves original information of horizontal axis labels</li>
+        <li>Rotation of vertical axis labels saves space in horizontal direction</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Readability of axis labels decreases as natural reading direction is not considered</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-v5">
+<h1>V5: Reformatting Titles and Labels</h1>
+<ul>
+  <li>Use well-known formats to shorten labels and titles</li>
+  <li>Well-known formats:
+    <ul>
+      <li>Numbers: 2.000 = 2k, 2.000.000 = 2M, etc.</li>
+      <li>Dates: January 1st 2024 = 01-01-2024 ~ 01-2024 ~ 01-24</li>
+      <li>Geographic locations: United States of America = USA</li>
+      <li>Organization names: Web Consortium Cascading Style Sheets Working Group = W3C CSS WG</li>
+    </ul>
+  </li>
+  <li>Reformulate titles if no format exists</li>
+  <li>For web-based visualizations:
+    <ul>
+      <li>Responsive visualization tools often provide configuration options for formatting labels</li>
+    </ul>
+  </li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Prevents clutter and intersections</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Readability of labels highly dependent on used format and user</li>
+        <li>Shortening of labels can lead to information loss</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-v6">
+<h1>V6: Scaling Labels between minimal and maximal Tolerances</h1>
+<ul>
+  <li>Adapting font size of labels either fluently or via breakpoints</li>
+  <li>For web-based visualizations:
+    <ul>
+      <li>CSS media queries for changing font size at breakpoints</li>
+      <li>CSS size container queries for changing font size at breakpoints</li>
+      <li>CSS comparison functions for fluidly changing font size</li>
+      <li>CSS comparison functions can be combined with container query units to achieve better control</li>
+    </ul>
+  </li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Overall aesthetics of visualization improve if font size is in relation to visualization size</li>
+        <li>Reduces risk of clutter and intersections</li>
+        <li>Tolerance values prevent extraordinary small or large font sizes</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Fluid Transition between labels not exactly predictable and requires manual testing</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-v7">
+<h1>V7: Scaling down selection of elements</h1>
+<ul>
+  <li>Approach varies for different kinds of elements:
+    <ul>
+      <li>Bar elements: Can be scaled without problems in horizontal and vertical direction</li>
+      <li>Line elements: Can be scaled without problems in horizontal and vertical direction</li>
+      <li>Point elements (or other markers): Must keep aspect-ratio to maintain their shape</li>
+    </ul>
+  </li>
+  <li>Approach varies for different kinds of visualizations:
+    <ul>
+      <li>Visualizations with variable aspect-ratio (cartesian charts, parallel coordinates chart, etc.)</li>
+      <li>Visualizations with fixed aspect-ratio (pie chart, chord diagram, maps, etc.)</li>
+    </ul>
+  </li>
+  <li>For web-based visualizations:
+    <ul>
+      <li>JavaScript algorithm for recalculating new position and size of elements</li>
+    </ul>
+  </li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Can save a lot of space on narrower screens in both horizontal and vertical direction</li>
+        <li>Smooth transition if implemented via event listener and algorithm, which appears very natural</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Elements must already be small on wider spaces if a large number of elements is given</li>
+        <li>Visualizations with fixed aspect-ratio require additional considerations</li>
+        <li>Elements with fixed aspect-ratio require additional considerations</li>
+        <li>Line elements appear steep on narrow screens and flat on wider ones</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-v8">
+<h1>V8: Removing categories, dimensions, elements and axis labels</h1>
+<ul>
+  <li>Removing information from a visualization as space gets narrower</li>
+  <li>For web-based visualizations:
+    <ul>
+      <li>Provide less data to visualization tools as screen gets narrower</li>
+      <li>Hide elements, categories or dimensions via CSS container and media queries</li>
+    </ul>
+  </li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Can save a lot of space on narrower screens in both horizontal and vertical direction</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Information loss must be taken into account</li>
+        <li>The concealment of essential information can change the original message of the visualization</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-v9">
+<h1>V9: Swapping Data Dimensions</h1>
+<ul>
+  <li>Different data dimensions often have different scales and require a different amount of space</li>
+  <li>Swapping data dimensions can exploit this aspect</li>
+  <li>Especially swapping of cartesian chart axis is a useful version of this pattern</li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Can transform visualization to better fit current space requirements without loosing information</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Major change in visualization which may affect other ongoing transformations if used incautiously</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-v10">
+<h1>V10: Swapping Whole Visualization</h1>
+<ul>
+  <li>Sometimes visualizations cannot be transformed because transformation would result in:
+    <ul>
+      <li>Unacceptable amount of information loss</li>
+      <li>Alteration of original message</li>
+      <li>Distortion of visualization</li>
+      <li>Unreadable elements or labels</li>
+    </ul>
+  </li>
+  <li>As other transformations lead to unacceptable results, visualization is completely swapped with
+    different visualization that maintains the original message as well as possible
+  </li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Provides a solution where all other transformations do not</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Creating two visualizations requires more effort than creating a single one</li>
+        <li>It may be difficult to preserve the original message for certain chart types</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-i1">
+<h1>I1: Adding Toolbar and Menus</h1>
+<ul>
+  <li>Provide interactions via additional control elements</li>
+  <li>Can be hidden on default and revealed on first interaction with chart to save space</li>
+  <li>Highlighting whole visualization and switching cursor into a pointer on hover increases
+    chance of being discovered
+  </li>
+  <li>Typical functionalities provided by toolbars and menus:
+    <ul>
+      <li>Downloading a visualization</li>
+      <li>Show/Hide categories</li>
+      <li>Show/Hide dimensions</li>
+      <li>Selection between different kinds of views (maps)</li>
+      <li>Selection between different interaction types (zoom)</li>
+    </ul>
+  </li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Provides theoretically endless options for additional interactions</li>
+        <li>Likely to be discovered by the user</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Takes up space if not hidden by default</li>
+        <li>Must be discovered by user if hidden by default</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-i2">
+<h1>I2: Limiting Selection of visible Categories, Records and Dimensions</h1>
+<ul>
+  <li>Include control elements enabling to show/hide categories, dimensions and/or records</li>
+  <li>Prevent categories, dimensions and/or records from being visible at the same time</li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Hidden data can be made visible again by the user</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Not all information of a visualization is visible at the same time</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-i3">
+<h1>I3: Add Zooming</h1>
+<ul>
+  <li>Enabling user to zoom in and out of visualization</li>
+  <li>Enabling user to pan when zoomed into part of visualization</li>
+  <li>Optionally include control elements for switching between different types of zoom</li>
+</ul>
+<div class="flex-cols-container">
+  <ul class="flex-cols-col">
+    <li>
+      Advantages:
+      <ul>
+        <li>Gives user possibility to look into especially interesting parts of a visualization</li>
+        <li>Makes otherwise inaccessible parts of a visualization accessible</li>
+      </ul>
+    </li>
+  </ul>
+  <ul class="flex-cols-col">
+    <li>
+      Disadvantages:
+      <ul>
+        <li>Not all information of a visualization is visible at the same time</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+</section>
+
+
+
+<section class="slides-d1">
+<h1>D1: Applying Data Generalization</h1>
+<ul>
+  <li>Form of data mining and typically used to abstract personal data</li>
+  <li>Classify many data points into several managable groups</li>
+  <li>Allows presenting information in a more compact way</li>
+</ul>
+</section>
+
+
+
+<section class="slides-d2">
+<h1>D2: Applying Data Aggregation</h1>
+<ul>
+  <li>Summarize information data set into one or multiple useful statistics</li>
+  <li>Allows presentation of theoretically arbitrary large data collections as single visualization element</li>
+  <li>Can be used well in combination with data generalization to represent multiple semantically related data points
+    as single visualization element</li>
+</ul>
+</section>
+
+
+
+<section class="slides-d3">
+<h1>D3: Applying Cluster Analysis</h1>
+<ul>
+  <li>Method of unsupervised learning in field of data analysis</li>
+  <li>Group unlabeled objects based on their similarities</li>
+  <li>Common types of clustering:
+    <ul>
+      <li>Hierarchical clustering</li>
+      <li>K-means clustering</li>
+      <li>Model-based clustering</li>
+      <li>Density-based clustering</li>
+      <li>Fuzzy clustering</li>
+    </ul>
+  </li>
+  <li>Allows abstraction of similar data points in data set</li>
+  <li>Example 1: Usage of automatic hierarchical clustering to replace intersecting data points with clusters</li>
+  <li>Example 2: Provide control elements for applying clustering on demand</li>
+</ul>
+</section>

@@ -1,0 +1,49 @@
+@use "chartist_styles";
+
+.chartist-slide {
+  li {
+    line-height: 1.5em
+  }
+
+  ul {
+    max-width: 46.875rem;
+  }
+
+  .chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 75vh;
+    width: 100%;
+  }
+
+  #chartist-chart {
+    width: 100%;
+    flex: 1 1 100%;
+    container-type: inline-size;
+
+    .ct-bar {
+      stroke: #78b4c6;
+      stroke-width: calc(1rem + 3cqw);
+    }
+
+    @container (min-width: 28.125rem) and (width < 46.875rem) {
+      .ct-bar {
+        stroke-width: calc(1rem + 5cqw);
+      }
+    }
+
+    @container (min-width: 46.875rem) and (width < 62.5rem) {
+      .ct-bar {
+        stroke-width: calc(1rem + 8cqw);
+      }
+    }
+
+    @container (min-width: 62.5rem) {
+      .ct-bar {
+        stroke-width: calc(1rem + 11cqw);
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+Desktop Picture:
+Photo by <a href="https://unsplash.com/@glenncarstenspeters?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Glenn Carstens-Peters</a> on <a href="https://unsplash.com/photos/person-using-macbook-pro-npxXWgQ33ZQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+Tablet Picture:
+Photo by <a href="https://unsplash.com/@rpnickson?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Roberto Nickson</a> on <a href="https://unsplash.com/photos/black-ipad-hLgYtX0rPgw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+Smartphone Picture:
+Photo by <a href="https://unsplash.com/@mr_fresh?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Yura Fresh</a> on <a href="https://unsplash.com/photos/person-holding-space-gray-iphone-x-n31x0hhnzOs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+Smartwatch Picture:
+Photo by <a href="https://unsplash.com/@sabina_ciesielska?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Sabina</a> on <a href="https://unsplash.com/photos/silver-aluminum-case-apple-watch-with-white-nike-sport-band-0zAHoJ1gnGg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+

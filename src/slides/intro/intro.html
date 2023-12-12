@@ -1,0 +1,173 @@
+<section class="titleslide slide-title">
+
+    <h1>Responsive Visualization Patterns and Tools</h1>
+    <h2>David Egger<br/>
+        706.424 Seminar/Project Interactive and Visual Information Systems WS 2023<br/>
+        Graz University of Technology</h2>
+    <h3>Tue 12 Dec 2023</h3>
+
+    <a href="https://responsive-patterns-and-tools-slides.netlify.app">
+        https://responsive-patterns-and-tools-slides.netlify.app</a>
+
+
+    <div class="copyright">
+        <p>Copyright © 2023 by David Egger, except as otherwise noted. This
+            work is placed under a Creative Commons Attribution 4.0 International
+            (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>)
+            licence.</p>
+    </div>
+
+</section>
+
+
+
+<section class="slide-resp-vis">
+<h1>Responsive Visualization</h1>
+
+<ul>
+    <li>
+        Responsive visualizations adapt to device characteristics.
+    </li>
+    <li>
+        Wider factors affecting perception of visualizations [Horak, Aigner, Brehmer, Joshi and Tominski 2021] include:
+        <ul>
+            <li>
+                Usage factors
+            </li>
+            <li>
+                Environmental factors
+            </li>
+            <li>
+                Device factors
+            </li>
+            <li>
+                Data factors
+            </li>
+        </ul>
+    </li>
+    <li>Why is responsive visualization important?</li>
+</ul>
+
+<div class="column-wide">
+    <figure>
+        <div class="images">
+            <img src="../../images/devices/desktop_in_use.jpg" alt="Visualizations must be capable of being displayed on desktops devices and laptops." />
+        </div>
+        <figcaption>
+            Visualizations must be capable of being displayed desktops and laptops.<br/>
+            <span class="credit">
+                Photo by <a href="https://unsplash.com/@glenncarstenspeters?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Glenn Carstens-Peters</a> on <a href="https://unsplash.com/photos/person-using-macbook-pro-npxXWgQ33ZQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+            </span>
+        </figcaption>
+    </figure>
+
+    <figure>
+        <div class="images">
+            <img src="../../images/devices/smartphone_in_use.jpg" alt="Visualizations must be capable of being displayed on smartphones." />
+            <img src="../../images/devices/tablet_in_use.jpg" alt="Visualizations must be capable of being displayed on tablets." />
+        </div>
+        <figcaption>
+            Visualizations must be capable of being displayed on mobile devices.<br/>
+            <span class="credit">
+                Smartphone photo by <a href="https://unsplash.com/@mr_fresh?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Yura Fresh</a> on <a href="https://unsplash.com/photos/person-holding-space-gray-iphone-x-n31x0hhnzOs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+            </span>
+            <br/>
+            <span class="credit">
+                Tablet photo by <a href="https://unsplash.com/@rpnickson?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Roberto Nickson</a> on <a href="https://unsplash.com/photos/black-ipad-hLgYtX0rPgw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+            </span>
+        </figcaption>
+    </figure>
+
+    <figure>
+        <div class="images">
+            <img src="../../images/devices/smart_watch_in_use.jpg" alt="Visualizations must be capable of being displayed on smart watches." />
+        </div>
+        <figcaption>
+            Visualizations may even be capable of being displayed on wearables like smart watches.<br/>
+            <span class="credit">
+                Photo by <a href="https://unsplash.com/@sabina_ciesielska?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Sabina</a> on <a href="https://unsplash.com/photos/silver-aluminum-case-apple-watch-with-white-nike-sport-band-0zAHoJ1gnGg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+            </span>
+        </figcaption>
+    </figure>
+</div>
+</section>
+
+
+
+<section class="slide-mobile-web respvis-slide">
+<h1>Reason 1: Today's Web is Mobile</h1>
+<figure id="devices-market-share-figure" class="figure-whole-iframe">
+<!--    <div class="figure-whole-content-wrapper">-->
+<!--        <img src="../../images/StatCounter-market-share-devices.png" alt="Market Share of Device Types"/>-->
+<!--    </div>-->
+    <div class="chart" id="platform-comparison-market-share"> </div>
+    <figcaption>
+        Market share of device types by page views.<br/>
+        <span class="credit">
+            <a href="https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/worldwide/#monthly-201001-202311">StatCounter: Desktop vs Mobile vs Tablet Market Share Worldwide</a>
+        </span>
+    </figcaption>
+</figure>
+<!--<figure id="iframe-example3-figure" class="figure-whole-iframe">-->
+<!--    &lt;!&ndash;    <iframe src="https://respvis.netlify.app/linecharts/linechart-multiline/linechart-multiline" frameborder="0"> </iframe>&ndash;&gt;-->
+<!--    <div class="chart" id="sold-cars-germany"> </div>-->
+<!--    <figcaption>-->
+<!--        Interactive scatter plot rendered via RespVis-->
+<!--        &lt;!&ndash;        <button id="iframe-example2-resizer" type="button" style="width: fit-content">Resize</button>&ndash;&gt;-->
+<!--        &lt;!&ndash;        <input type="range" id="iframe-example2-range-resizer" name="volume" min="20" max="90" value="90" />&ndash;&gt;-->
+<!--    </figcaption>-->
+<!--</figure>-->
+</section>
+
+
+<section class="slide-resp-vis-important">
+<h1>Reason 2: Scaling Down Whole Visualization is Not Sufficient</h1>
+<figure class="figure-whole" id="grouped_bar_full_width_figure">
+    <div class="svg-wrapper-whole" id="grouped_bar_full_width"> </div>
+    <figcaption>
+        A grouped bar chart is not readable anymore, if scaled down too much.
+    </figcaption>
+</figure>
+</section>
+
+
+
+<section class="slide-resp-web">
+<h1>Responsive Web Design</h1>
+<ul>
+    <li>Originated from need to avoid horizontal scrolling.</li>
+    <li>Term “Responsive Web Design” coined by Ethan Marcotte [Marcotte 2010]:
+        <ul>
+            <li>Flexible grids</li>
+            <li>Flexible images</li>
+            <li>Media queries</li>
+        </ul>
+    </li>
+    <li>Responsive design strategies:
+        <ul>
+            <li>Desktop-First</li>
+            <li>Mobile-First</li>
+            <li>Everything-in-Parallel</li>
+        </ul>
+    </li>
+    <li>Content elements on web pages, such as images and charts (visualizations), also
+      have to become responsive.</li>
+</ul>
+</section>
+
+
+
+<section class="slide-modern-css">
+<h1>Modern CSS Techniques</h1>
+<p>
+“Modern CSS” techniques allow new approaches [Shadeed 2023]:
+</p>
+<ul>
+    <li>CSS Flexbox</li>
+    <li>CSS Grid</li>
+    <li>CSS comparison functions</li>
+    <li>Size container queries</li>
+    <li>Container query units</li>
+    <li>Style container queries</li>
+</ul>
+</section>

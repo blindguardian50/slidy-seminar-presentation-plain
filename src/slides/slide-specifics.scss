@@ -1,0 +1,142 @@
+.slide-title {}
+
+.slide-resp-vis {
+  .column-wide {
+    img {
+      max-height: 15rem;
+    }
+  }
+}
+
+.slide-mobile-web {
+  figure {
+    height: 85%;
+  }
+  #platform-comparison-market-share, figcaption {
+    //margin-top: 4rem;
+  }
+}
+
+.slide-resp-vis-important {
+  --color-categorical-0: #4f8c9d;
+  --color-categorical-1: #e23209;
+  --color-categorical-2: #539322;
+  #grouped_bar_full_width {
+    .header .title text {
+      font-size: 24px;
+    }
+    .legend {
+      font-size: 12.8px;
+    }
+    .legend .title {
+      font-size: 19.2px;
+    }
+    .axis, .series-label.series-label-bar {
+      font-size: 11.2px;
+    }
+    .axis .title text {
+      font-size: 16.8px;
+    }
+  }
+}
+
+.slide-resp-web {}
+
+.slide-modern-css {}
+
+.slide-approaches-resp-vis {}
+
+
+
+
+.slide-transition.slide {
+  //background-color: #0000;
+  //background-image: linear-gradient(#fff 0%, gray 100%);
+  background-image: linear-gradient(white 0%, #c7c7c7 100%);
+
+  background-position: center, 0 0;
+  background-repeat: no-repeat, repeat;
+  background-size: contain;
+  background-attachment: scroll, scroll;
+  background-origin: padding-box, padding-box;
+  background-clip: border-box, border-box;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    text-align: center;
+    font-size: 5rem;
+    padding: 0;
+  }
+}
+
+.slide-evaluation-tools {
+
+}
+
+.slide-tool-kit-1 {
+  .figure-iframe .chart {
+    position: relative;
+    height:75vh;
+    width:100%;
+  }
+}
+
+.slide-tool-kit-3 {
+  //.grid-long-figure-wrapper {
+  //  @container (min-width: 45rem) {
+  //    .grid-long-figure {
+  //      grid-template-columns: 34rem 1fr;
+  //    }
+  //  }
+  //}
+}
+
+.slide-tool-kit-4 {
+  //.grid-long-figure-wrapper {
+  //  @container (min-width: 45rem) {
+  //    .grid-long-figure {
+  //      grid-template-columns: 34rem 1fr;
+  //    }
+  //  }
+  //}
+}
+
+.slide-tool-system-2 {
+  .grid-long-figure-wrapper {
+    container: tool-system-2-container / inline-size;
+    .grid-long-figure {
+      .figure-tool-stacked {
+        flex-direction: row;
+        flex-wrap: wrap;
+        min-height: 10rem;
+        figure {
+          flex-grow: 0;
+          width: auto;
+          #power_bi_large svg {
+            width: 20rem;
+          }
+          #power_bi_small svg {
+            width: 15rem;
+          }
+        }
+      }
+    }
+    @container (min-width: 55rem) {
+      .grid-long-figure {
+        grid-template-columns: 40rem 1fr;
+        .figure-tool-stacked {
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+.slide-resources {}
+
+.slide-references {}
+
+
+
