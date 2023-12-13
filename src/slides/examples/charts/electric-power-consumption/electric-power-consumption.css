@@ -1,5 +1,12 @@
 #electric-power-consumption {
+  font-size: 0.85em;
   container-type: inline-size;
+}
+#electric-power-consumption .header .title text {
+  font-size: clamp(0.8em, 0.8em + 1cqw, 1.5em);
+}
+#electric-power-consumption .axis .title text, #electric-power-consumption .legend .title {
+  font-size: clamp(1em, 1em + 1cqw, 1.5em);
 }
 #electric-power-consumption .point, #electric-power-consumption .axis-x .tick, #electric-power-consumption .axis-y .tick, #electric-power-consumption .series-label .label {
   display: none;
@@ -31,6 +38,7 @@
   }
   #electric-power-consumption .legend .items {
     flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
     justify-content: space-evenly;
   }

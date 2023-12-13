@@ -1,8 +1,10 @@
-import Chart from 'chart.js/auto'
+// import Chart from 'chart.js/auto'
+// import Chart from '../../../libs/chart-libs/chartjs.esm.js'
 // import ChartDataLabels from 'chartjs-plugin-datalabels' // 'chartjs-plugin-datalabels';
-import ChartDataLabels from './chartjs-plugin-datalabels.js' //The esm bundle does not work in production,
+// import ChartDataLabels from './chartjs-plugin-datalabels.js' //The esm bundle does not work in production,
                                                              // which is also the reason the package
-                                                             // datalabels package does not work
+                                                             // datalabels package does not work. The local bundle does
+                                                             // not work together with the chart.js umd bundle
 import austrianCities from './data/austrian-cities.js'
 
 //Global registration
@@ -54,7 +56,7 @@ export async function createChart(selector) {
 
     const config = {
         type: 'bar',
-        plugins: [ChartDataLabels],
+        // plugins: [ChartDataLabels],
         options: {
             onResize(chart, size) {
                 chart.options.scales.x = size.width < 400 ? populationScale : cityScale

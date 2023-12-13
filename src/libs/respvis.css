@@ -1,0 +1,478 @@
+:root {
+  --color-categorical-0: #78b4c6;
+  --color-categorical-1: #1c9820;
+  --color-categorical-2: #ff0087;
+  --color-categorical-3: #9bb64b;
+  --color-categorical-4: #628df2;
+  --color-categorical-5: #0db293;
+  --color-categorical-6: #f14330;
+  --color-categorical-7: #b8949e;
+  --color-categorical-8: #e49c4f;
+  --color-categorical-9: #a665e4;
+  --highlight-brightness: 130%;
+}
+
+@media (hover: none) {
+  .chart {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+.respvis-slide .chart-cartesian .axis {
+  display: grid;
+}
+.respvis-slide .chart-cartesian .axis-left {
+  grid-area: axis-left;
+  grid-template-areas: "title subtitle ticks";
+}
+.respvis-slide .chart-cartesian .axis-left .ticks-transform {
+  margin-left: 0.5em;
+}
+.respvis-slide .chart-cartesian .axis-left .tick text {
+  text-anchor: end;
+}
+.respvis-slide .chart-cartesian .axis-left .ticks {
+  width: 100%;
+  height: 100%;
+  margin-left: 100%;
+}
+.respvis-slide .chart-cartesian .axis-right {
+  grid-template-areas: "ticks title subtitle";
+}
+.respvis-slide .chart-cartesian .axis-left, .respvis-slide .chart-cartesian .axis-right {
+  grid-template-rows: 100%;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+}
+.respvis-slide .chart-cartesian .axis-left .title, .respvis-slide .chart-cartesian .axis-left .subtitle, .respvis-slide .chart-cartesian .axis-right .title, .respvis-slide .chart-cartesian .axis-right .subtitle {
+  --fit-width: true;
+}
+.respvis-slide .chart-cartesian .axis-left .title text, .respvis-slide .chart-cartesian .axis-left .subtitle text, .respvis-slide .chart-cartesian .axis-right .title text, .respvis-slide .chart-cartesian .axis-right .subtitle text {
+  text-anchor: middle;
+  transform: rotate(-90deg);
+}
+.respvis-slide .chart-cartesian .axis-left .ticks-transform, .respvis-slide .chart-cartesian .axis-right .ticks-transform {
+  height: 100%;
+  --fit-width: true;
+}
+.respvis-slide .chart-cartesian .axis-bottom {
+  grid-area: axis-bottom;
+  grid-template-areas: "ticks" "title" "subtitle";
+}
+.respvis-slide .chart-cartesian .axis-bottom .ticks-transform {
+  margin-bottom: 1em;
+}
+.respvis-slide .chart-cartesian .axis-bottom .tick text {
+  text-anchor: middle;
+}
+.respvis-slide .chart-cartesian .axis-top {
+  grid-template-areas: "title" "subtitle" "ticks";
+}
+.respvis-slide .chart-cartesian .axis-bottom, .respvis-slide .chart-cartesian .axis-top {
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 100%;
+  justify-items: center;
+}
+.respvis-slide .chart-cartesian .axis-bottom .ticks-transform, .respvis-slide .chart-cartesian .axis-top .ticks-transform {
+  width: 100%;
+  --fit-height: true;
+}
+.respvis-slide .chart-cartesian .axis-bottom .title, .respvis-slide .chart-cartesian .axis-bottom .subtitle, .respvis-slide .chart-cartesian .axis-top .title, .respvis-slide .chart-cartesian .axis-top .subtitle {
+  --fit-height: true;
+}
+.respvis-slide .chart-cartesian .axis-bottom .title text, .respvis-slide .chart-cartesian .axis-bottom .subtitle text, .respvis-slide .chart-cartesian .axis-top .title text, .respvis-slide .chart-cartesian .axis-top .subtitle text {
+  text-anchor: middle;
+}
+.respvis-slide .chart-cartesian .ticks-transform {
+  grid-area: ticks;
+}
+.respvis-slide .chart-parcoord {
+  display: grid;
+  grid-template: auto 1fr/1fr;
+  grid-template-areas: "header" "draw-area";
+  padding: 2rem 1rem 0.5rem 0.5rem;
+  overflow: visible;
+}
+.respvis-slide .chart-parcoord .axis {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: "title" "subtitle" "ticks-transform";
+}
+.respvis-slide .chart-parcoord .axis .title {
+  --fit-width: true;
+  --fit-height: true;
+  grid-area: title;
+}
+.respvis-slide .chart-parcoord .axis .title text {
+  text-anchor: middle;
+}
+.respvis-slide .chart-parcoord .axis .subtitle {
+  --fit-width: true;
+  --fit-height: true;
+  grid-area: subtitle;
+}
+.respvis-slide .chart-parcoord .axis .subtitle text {
+  text-anchor: middle;
+}
+.respvis-slide .chart-parcoord .axis .ticks-transform {
+  grid-area: ticks-transform;
+}
+.respvis-slide .chart-parcoord .axis .ticks text {
+  text-anchor: end;
+  dominant-baseline: middle;
+}
+.respvis-slide .axis {
+  font-size: 0.7em;
+}
+.respvis-slide .axis .tick line {
+  stroke: currentColor;
+}
+.respvis-slide .axis .ticks .domain {
+  stroke: currentColor;
+  fill: none;
+}
+.respvis-slide .legend {
+  grid-area: legend;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.8em;
+  cursor: default;
+  margin: 0.5rem;
+}
+.respvis-slide [data-legend-position=right] .legend,
+.respvis-slide .legend {
+  align-self: start;
+}
+.respvis-slide [data-legend-position=top] .legend {
+  justify-self: end;
+}
+.respvis-slide .legend .title {
+  margin: 0 0.5em;
+}
+.respvis-slide .legend .items {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.respvis-slide [data-legend-position=left] .legend .items,
+.respvis-slide [data-legend-position=right] .legend .items,
+.respvis-slide .legend.vertical .items,
+.respvis-slide .legend .items {
+  flex-direction: column;
+}
+.respvis-slide [data-legend-position=top] .legend .items,
+.respvis-slide [data-legend-position=bottom] .legend .items,
+.respvis-slide .legend.horizontal .items {
+  flex-direction: row;
+}
+.respvis-slide .legend-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0.25em;
+}
+.respvis-slide .legend-item .symbol {
+  margin-right: 0.5em;
+  stroke: #000;
+  stroke-width: 1px;
+  width: 10px;
+  height: 10px;
+}
+.respvis-slide .highlight.legend-item .symbol {
+  filter: brightness(var(--highlight-brightness));
+}
+.respvis-slide .chart .header {
+  grid-area: header;
+  display: grid;
+  grid-template: auto auto/1fr;
+  grid-template-areas: "title" "subtitle";
+  justify-items: center;
+  padding-bottom: 1rem;
+}
+.respvis-slide .chart .header .title,
+.respvis-slide .chart .header .subtitle {
+  --fit-width: true;
+  --fit-height: true;
+}
+.respvis-slide .chart-window {
+  display: grid;
+  position: relative;
+  grid-template: min-content 1fr/1fr;
+  grid-template-areas: "toolbar" "chart";
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+}
+.respvis-slide .chart-cartesian[data-legend-position=right],
+.respvis-slide .chart-cartesian {
+  display: grid;
+  grid-template: auto 1fr auto/auto 1fr auto;
+  grid-template-areas: "header header header" "axis-left draw-area legend" ". axis-bottom .";
+  padding: 2rem 1rem 0.5rem 0.5rem;
+  overflow: visible;
+}
+.respvis-slide .chart-cartesian[data-legend-position=top] {
+  grid-template: auto 1fr auto/auto 1fr;
+  grid-template-areas: ". legend" "axis-left draw-area" ". axis-bottom";
+}
+.respvis-slide .chart.chart-parcoord text, .respvis-slide .chart.chart-parcoord text[data-orientation=horizontal] {
+  dominant-baseline: central;
+}
+.respvis-slide .layout {
+  --fit-width: false;
+  --fit-height: false;
+  pointer-events: none;
+}
+.respvis-slide .draw-area {
+  grid-area: draw-area;
+  display: grid;
+  overflow: visible;
+}
+.respvis-slide .draw-area > * {
+  grid-area: 1/1;
+}
+.respvis-slide .draw-area .background {
+  opacity: 0;
+}
+.respvis-slide .layouter {
+  /*display: grid;*/
+  position: relative;
+}
+.respvis-slide .layouter > * {
+  /*grid-area: 1/1;*/
+}
+.respvis-slide .layouter > :not(.layout) {
+  position: absolute;
+  /* padding and margin are not ignored on root svg elements so they need to
+  be set to 0 to not apply them twice (1x by layouter, 1x by browser) */
+  padding: 0;
+  margin: 0;
+}
+.respvis-slide .chart-window .layouter {
+  grid-area: chart;
+}
+.respvis-slide .chart-window .toolbar {
+  grid-area: toolbar;
+  display: none;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.respvis-slide .chart-window:hover .toolbar, .respvis-slide .chart-window:active .toolbar {
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.respvis-slide .menu {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.respvis-slide .menu > .chevron {
+  font-size: 0.7em;
+  margin-right: 0.5em;
+}
+.respvis-slide .menu > .items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: -1px;
+  right: 100%;
+  border: 1px solid rgb(118, 118, 118);
+  display: none;
+}
+.respvis-slide .menu,
+.respvis-slide .menu > .items > li {
+  white-space: nowrap;
+  padding: 0.5em;
+  background-color: rgb(239, 239, 239);
+}
+.respvis-slide .menu:hover,
+.respvis-slide .menu > .items > li:hover {
+  filter: brightness(95%);
+}
+.respvis-slide .menu:hover > .items {
+  display: block;
+  filter: brightness(105.26%);
+}
+.respvis-slide .menu-tools {
+  z-index: 10;
+  cursor: default;
+}
+.respvis-slide .menu-tools > .text {
+  font-size: 1.25rem;
+}
+.respvis-slide .menu-tools > .items {
+  right: 0;
+  top: 100%;
+}
+.respvis-slide [data-style=categorical-0] {
+  fill: var(--color-categorical-0);
+  stroke: var(--color-categorical-0);
+}
+.respvis-slide [data-style=categorical-1] {
+  fill: var(--color-categorical-1);
+  stroke: var(--color-categorical-1);
+}
+.respvis-slide [data-style=categorical-2] {
+  fill: var(--color-categorical-2);
+  stroke: var(--color-categorical-2);
+}
+.respvis-slide [data-style=categorical-3] {
+  fill: var(--color-categorical-3);
+  stroke: var(--color-categorical-3);
+}
+.respvis-slide [data-style=categorical-4] {
+  fill: var(--color-categorical-4);
+  stroke: var(--color-categorical-4);
+}
+.respvis-slide [data-style=categorical-5] {
+  fill: var(--color-categorical-5);
+  stroke: var(--color-categorical-5);
+}
+.respvis-slide [data-style=categorical-6] {
+  fill: var(--color-categorical-6);
+  stroke: var(--color-categorical-6);
+}
+.respvis-slide [data-style=categorical-7] {
+  fill: var(--color-categorical-7);
+  stroke: var(--color-categorical-7);
+}
+.respvis-slide [data-style=categorical-8] {
+  fill: var(--color-categorical-8);
+  stroke: var(--color-categorical-8);
+}
+.respvis-slide [data-style=categorical-9] {
+  fill: var(--color-categorical-9);
+  stroke: var(--color-categorical-9);
+}
+.respvis-slide .series-label {
+  font-size: 0.7em;
+  pointer-events: none;
+}
+.respvis-slide .label.highlight, .respvis-slide .legend-item.highlight {
+  font-size: 1.2em;
+}
+.respvis-slide .text {
+  --fit-width: true;
+  --fit-height: true;
+}
+.respvis-slide text {
+  stroke: none;
+}
+.respvis-slide text[data-align-h=center] {
+  text-anchor: middle;
+}
+.respvis-slide text[data-align-v=center] {
+  dominant-baseline: middle;
+}
+.respvis-slide text[data-align-h=left] {
+  text-anchor: end;
+}
+.respvis-slide text[data-align-h=right] {
+  text-anchor: start;
+}
+.respvis-slide text[data-align-v=top] {
+  dominant-baseline: auto;
+}
+.respvis-slide text[data-align-v=bottom] {
+  dominant-baseline: hanging;
+}
+.respvis-slide text,
+.respvis-slide text[data-orientation=horizontal] {
+  dominant-baseline: hanging;
+  text-anchor: start;
+}
+.respvis-slide text[data-orientation=vertical] {
+  transform: rotate(-90deg);
+  text-anchor: end;
+  dominant-baseline: hanging;
+}
+.respvis-slide .title text,
+.respvis-slide text.title {
+  font-size: 1.5em;
+  letter-spacing: 0.1em;
+}
+.respvis-slide .title {
+  grid-area: title;
+}
+.respvis-slide .subtitle {
+  grid-area: subtitle;
+}
+.respvis-slide path.line {
+  fill: none;
+  stroke-width: 2;
+}
+.respvis-slide .highlight path.line,
+.respvis-slide path.line.highlight {
+  stroke-width: 4;
+}
+.respvis-slide .chart-line[data-flipped=false] .layout.series-label {
+  margin-top: -1em;
+}
+.respvis-slide .chart-line[data-flipped=false] .series-label .label {
+  text-anchor: middle;
+  dominant-baseline: auto;
+}
+.respvis-slide .chart-line[data-flipped=true] .layout.series-label {
+  margin-left: 1em;
+}
+.respvis-slide .chart-line[data-flipped=true] .series-label .label {
+  dominant-baseline: middle;
+}
+.respvis-slide .chart.chart-parcoord .line {
+  stroke: var(--color-categorical-0);
+}
+.respvis-slide .bar {
+  stroke-width: 1px;
+  stroke: #000;
+}
+.respvis-slide .highlight .bar,
+.respvis-slide .highlight.bar,
+.respvis-slide .highlight .point,
+.respvis-slide .highlight.point {
+  filter: brightness(var(--highlight-brightness));
+  stroke-width: 1.2;
+}
+.respvis-slide .series-point {
+  overflow: hidden;
+}
+.respvis-slide .point {
+  stroke: #000;
+  stroke-width: 1px;
+}
+
+.tooltip {
+  opacity: 0;
+  background-color: #fff;
+  border: #000 solid 1px;
+  border-radius: 5px;
+  padding: 0.5em;
+  position: fixed;
+  pointer-events: none;
+}
+
+.tooltip.show {
+  opacity: 1;
+}
+
+.toolbar .menu .items {
+  font-size: 1em;
+}
+.toolbar .menu .items li {
+  margin: 0;
+}
+.toolbar .menu .items li input[type=checkbox] {
+  display: inline-block;
+}
+.toolbar .menu .items li label {
+  transform: scaleX(1);
+  font-size: 1em;
+  width: auto;
+}

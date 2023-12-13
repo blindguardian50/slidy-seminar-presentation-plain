@@ -1,5 +1,5 @@
-import { BarChart } from 'chartist';
-import austrianCities from './data/austrian-cities'
+import { BarChart } from '../../../libs/chart-libs/chartist/chartist.ems.js';
+import austrianCities from './data/austrian-cities.js'
 export function createChart(selector) {
     const formatter = (value) => {
         if (Number(value) > 999999) {

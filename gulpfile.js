@@ -4,33 +4,31 @@
 // const rename = require('gulp-rename');
 // const path = require('path');
 import gulp from 'gulp';
-import { deleteAsync as del} from 'del';
-import sass from 'gulp-sass';
+import {deleteAsync as del} from 'del';
+import gulpSass from 'gulp-sass';
+import sassCompiler from 'sass';
 // const sass = require('gulp-sass')(require('sass'));
 import rename from 'gulp-rename';
 import tap from 'gulp-tap'
+import debug from 'gulp-debug'
 import path from 'path';
+
+const sass = gulpSass(sassCompiler)
 
 export const buildCSS = gulp.series(buildExamplesSCSS)
 
 async function buildExamplesSCSS() {
-  const parentDir = path.dirname(import.meta.url)
+  const parentDir = path.dirname(new URL(import.meta.url).pathname)
   const srcDir = path.join(parentDir, 'src')
-  const scssGlob = path.join(srcDir, '**.scss')
-  console.log(scssGlob)
-  gulp.src(scssGlob).pipe(tap((file) => {
-    // Access the filename here
-    const filename = path.basename(file.path);
-    console.log('Filename:', filename);
-  }))
-  // console.log(srcDir)
-  const filename = ""
-  // const { pipe } = await compileSCSSToCSS(filename)
-  // await new Promise((resolve) => {
-  //   pipe.on('end', () => {
-  //     resolve()
-  //   })
-  // })
+  const scssGlob = path.join(srcDir, '**/*.scss')
+  gulp.src(scssGlob)
+    // .pipe(debug()) // Optional: Log the files that match the glob pattern
+    .pipe(tap((file) => {
+      // Access the filename here
+      const filePath = file.path
+      const fileDir = path.dirname(filePath)
+      compileSCSSToCSS(filePath, fileDir)
+    }))
 }
 
 async function compileSCSSToCSS(source, targetDir) {
@@ -44,7 +42,7 @@ async function compileSCSSToCSS(source, targetDir) {
   const targetPosix = [targetDirNamePosix, fileNameScss].join(path.posix.sep)
   const targetCSSFilePosix = targetPosix.substring(0, targetPosix.length - 4) + 'css';
 
-  await del(targetCSSFilePosix, { force: true })
+  await del(targetCSSFilePosix, {force: true})
 
   return {
     pipe: gulp.src(srcPosix)
@@ -56,14 +54,12 @@ async function compileSCSSToCSS(source, targetDir) {
 }
 
 
-
-
 function cleanDist() {
-  return del('dist', { force: true });
+  return del('dist', {force: true});
 }
 
 function cleanPackage() {
-  return del('package', { force: true });
+  return del('package', {force: true});
 }
 
 // # Public tasks

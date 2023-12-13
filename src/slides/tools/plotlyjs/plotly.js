@@ -1,7 +1,7 @@
 // @ts-ignore //breaks parcel
 // import Plotly from './bundle/plotly.js'
 // import Plotly from './bundle/plotly-basic.js'
-import austrianCities from './data/austrian-cities'
+import austrianCities from './data/austrian-cities.js'
 //
 export function createChart(selector) {
     const plot = document.querySelector(selector)

@@ -1,0 +1,81 @@
+.grid-long-figure-wrapper {
+  container: long-figure/inline-size;
+}
+.grid-long-figure-wrapper .grid-long-figure {
+  display: grid;
+  gap: 2rem;
+}
+.grid-long-figure-wrapper .grid-long-figure .figure-tool-resp {
+  display: grid;
+  margin: 0;
+  grid-template-columns: 1fr 100% 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: ". chart ." ". caption .";
+  transition: width 1.5s ease-in-out;
+  height: 75vh;
+}
+.grid-long-figure-wrapper .grid-long-figure .figure-tool-resp iframe, .grid-long-figure-wrapper .grid-long-figure .figure-tool-resp .chart, .grid-long-figure-wrapper .grid-long-figure .figure-tool-resp .canvas-chart-wrapper {
+  width: 100%;
+  height: 100%;
+  transition: height 1.5s ease-in-out, width 1.5s ease-in-out;
+  grid-area: chart;
+}
+.grid-long-figure-wrapper .grid-long-figure .figure-tool-resp img {
+  max-height: 100%;
+}
+.grid-long-figure-wrapper .grid-long-figure .figure-tool-resp .canvas-chart-wrapper {
+  width: 99%;
+  height: 99%;
+}
+.grid-long-figure-wrapper .grid-long-figure .figure-tool-stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+}
+.grid-long-figure-wrapper .grid-long-figure .figure-tool-stat img, .grid-long-figure-wrapper .grid-long-figure .figure-tool-stat svg {
+  max-width: 100%;
+  max-height: 80%;
+}
+.grid-long-figure-wrapper .grid-long-figure .figure-tool-stacked {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+}
+.grid-long-figure-wrapper .grid-long-figure .figure-tool-stacked figure {
+  width: 100%;
+}
+.grid-long-figure-wrapper .grid-long-figure .figure-tool-stacked figure img, .grid-long-figure-wrapper .grid-long-figure .figure-tool-stacked figure svg {
+  max-width: 100%;
+  max-height: 80%;
+}
+@container long-figure (min-width: 42.5rem) {
+  .grid-long-figure-wrapper .grid-long-figure {
+    grid-template-columns: 27.5rem 1fr;
+  }
+}
+
+.grid-table-wrapper {
+  display: grid;
+  align-content: center;
+  justify-content: center;
+}
+.grid-table-wrapper .grid-table {
+  max-width: 25rem;
+}
+.grid-table-wrapper .grid-table .header {
+  margin-bottom: 1rem;
+  border-block: 1px solid black;
+}
+.grid-table-wrapper .grid-table thead tr td {
+  text-align: center;
+}
+.grid-table-wrapper .grid-table tbody tr td:nth-of-type(2) {
+  text-align: right;
+}
+.grid-table-wrapper .table-caption {
+  max-width: 25rem;
+}

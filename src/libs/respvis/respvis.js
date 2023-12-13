@@ -10803,7 +10803,8 @@ function seriesPointCreatePoints(seriesData) {
             radius: r !== null && r !== void 0 ? r : 5,
             xValue: x,
             yValue: y,
-            color: color === null || color === void 0 ? void 0 : color.colorScale(color.colorDim[i])
+            color: color === null || color === void 0 ? void 0 : color.colorScale(color.colorDim[i]),
+            radiusValue: typeof radiuses !== "number" ? radiuses.radiusDim[i] : undefined
         });
     }
     return data;
@@ -10885,17 +10886,7 @@ function chartPointRender(selection) {
             .selectAll('.draw-area')
             .selectAll('.series-point')
             .data(pointSeries.map(function (p) {
-            return seriesPointData({
-                styleClasses: p.styleClasses,
-                keys: p.keys,
-                xValues: p.xValues,
-                yValues: p.yValues,
-                radiuses: p.radiuses,
-                color: p.color,
-                xScale: xScale,
-                yScale: yScale,
-                flipped: flipped
-            });
+            return seriesPointData(__assign(__assign({}, p), { xScale: xScale, yScale: yScale, flipped: flipped }));
         })).join('svg')
             .call(function (s) { return seriesPointRender(s); });
     }
@@ -10915,7 +10906,6 @@ function chartPointRender(selection) {
 function chartPointHoverLegendItem(chartS, legendItemS, hover) {
     legendItemS.each(function (_, i, g) {
         var key = g[i].getAttribute('data-key');
-        console.log(key);
         chartS.selectAll(".point[data-key^=\"".concat(key, "\"]")).classed('highlight', hover);
         chartS.selectAll(".label[data-key^=\"".concat(key, "\"]")).classed('highlight', hover);
     });
@@ -10934,17 +10924,8 @@ function chartPointData(data) {
             scale: radiuses.scale,
             radiusDim: radiuses.radiusDim[index]
         } : 5;
-        return seriesPointData({
-            flipped: flipped,
-            styleClasses: styleClasses,
-            keys: yVals[index].map(function (_, markerI) { var _a, _b; return "".concat((_b = (_a = legend === null || legend === void 0 ? void 0 : legend.keys) === null || _a === void 0 ? void 0 : _a[index]) !== null && _b !== void 0 ? _b : index, "-").concat(markerI); }),
-            xValues: xVals[index],
-            yValues: yVals[index],
-            radiuses: radiusesValid,
-            color: color,
-            xScale: xScaleValid,
-            yScale: yScaleValid
-        });
+        var toolTipData = data.markerTooltips || {};
+        return seriesPointData(__assign({ flipped: flipped, styleClasses: styleClasses, keys: yVals[index].map(function (_, markerI) { var _a, _b; return "".concat((_b = (_a = legend === null || legend === void 0 ? void 0 : legend.keys) === null || _a === void 0 ? void 0 : _a[index]) !== null && _b !== void 0 ? _b : index, "-").concat(markerI); }), xValues: xVals[index], yValues: yVals[index], radiuses: radiusesValid, color: color, xScale: xScaleValid, yScale: yScaleValid }, toolTipData));
     });
     var firstPoint = points[0];
     var maxRadius = typeof firstPoint.radiuses === "number" ? firstPoint.radiuses : firstPoint.radiuses.scale.range()[1];
@@ -10964,7 +10945,7 @@ var ScatterPlot = /** @class */ (function () {
         this.data = chartWindowPointData(data);
     }
     /**
-     * Adds custom event listener. Be sure to add custom event listeners before calling {@link buildWindowChart}
+     * Adds custom event listener. Be sure to add custom event listeners before calling {@link ScatterPlot.buildWindowChart}
      * as the method also adds listeners and the order matters.
      */
     ScatterPlot.prototype.addCustomListener = function (name, callback) {

@@ -1,5 +1,8 @@
 import austrianCities from './data/austrian-cities.js';
-import { chart } from 'highcharts';
+// import { chart } from 'highcharts';
+// import { chart } from '../../../libs/chart-libs/highcharts.js';
+import Highcharts from '../../../libs/chart-libs/highcharts/masters/highcharts.src.js';
+// import { chart } from '../../../libs/chart-libs/highcharts/masters/highcharts.src.js';
 
 export function createChart(selector) {
     const renderTo  = document.querySelector(selector)
@@ -17,7 +20,7 @@ export function createChart(selector) {
         }
         return context.text;
     }
-    const option = {
+    const options = {
         chart: {
             type: 'column'
         },
@@ -80,5 +83,5 @@ export function createChart(selector) {
             data: austrianCities.populations
         }]
     }
-    return chart(renderTo, options);
+    return Highcharts.chart(renderTo, options);
 }

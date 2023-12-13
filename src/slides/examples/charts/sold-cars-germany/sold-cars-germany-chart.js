@@ -39,6 +39,11 @@ const data = {
         radiusDim: mileages,
         scale: scales.radiusScale
     },
+    markerTooltips: {
+        tooltips: (e, {xValue, yValue, radiusValue}) => {
+            return `Horse Power: ${xValue}PS<br/>Price: ${yValue}€<br/>Mileage: ${radiusValue}km`
+        },
+    },
     legend: {
         keys: [...topMakesNames, "Other"],
         labels: [...topMakesNames, "Other"]

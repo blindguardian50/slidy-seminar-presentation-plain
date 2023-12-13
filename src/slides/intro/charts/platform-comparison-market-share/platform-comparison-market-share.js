@@ -5,7 +5,7 @@ import {
   chartWindowLineAutoResize,
 } from '../../../../libs/respvis/respvis.js';
 
-import {date, tablet, desktop, mobile} from './data'
+import {date, tablet, desktop, mobile} from './data.js'
 import {chooseResponsiveData} from "./chooseResponsiveData.js";
 
 const calcData = () => {

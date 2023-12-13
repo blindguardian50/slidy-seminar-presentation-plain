@@ -3,9 +3,58 @@
 }
 
 #sold-cars-germany {
+  font-size: 0.85em;
   container-type: inline-size;
 }
-@container (width < 30rem) {
+#sold-cars-germany .header .title text {
+  font-size: clamp(0.8em, 0.8em + 1cqw, 1.5em);
+}
+#sold-cars-germany .axis .title text, #sold-cars-germany .legend .title {
+  font-size: clamp(1em, 1em + 1cqw, 1.5em);
+}
+@container (min-width: 32rem) and (width < 45rem) {
+  #sold-cars-germany .axis-x .tick {
+    display: none;
+  }
+  #sold-cars-germany .axis-x .tick:nth-of-type(2n + 1) {
+    display: block;
+  }
+}
+@container (min-width: 25rem) and (width < 32rem) {
+  #sold-cars-germany .axis-x .tick {
+    display: none;
+  }
+  #sold-cars-germany .axis-x .tick:nth-of-type(2n + 1), #sold-cars-germany .axis-x .tick:first-of-type, #sold-cars-germany .axis-x .tick:last-of-type {
+    display: block;
+  }
+  #sold-cars-germany .legend .items {
+    grid-template-columns: auto auto auto;
+  }
+  #sold-cars-germany .axis-y .tick {
+    display: none;
+  }
+  #sold-cars-germany .axis-y .tick:nth-of-type(2n + 1), #sold-cars-germany .axis-y .tick:first-of-type, #sold-cars-germany .axis-y .tick:last-of-type {
+    display: block;
+  }
+}
+@container (width < 25rem) {
+  #sold-cars-germany .legend .items {
+    grid-template-columns: auto auto;
+  }
+  #sold-cars-germany .axis-x .tick {
+    display: none;
+  }
+  #sold-cars-germany .axis-x .tick:nth-of-type(7n + 1) {
+    display: block;
+  }
+}
+@container (width < 17.8125rem) {
+  #sold-cars-germany .legend .items {
+    grid-template-columns: auto;
+    justify-content: center;
+  }
+}
+@container (width < 32rem) {
   #sold-cars-germany .chart {
     grid-template: auto 1fr auto auto/auto 1fr auto;
     grid-template-areas: "header  header  header" "axis-left draw-area draw-area" " . axis-bottom . " " legend legend .";
@@ -21,23 +70,9 @@
     display: grid;
     width: 100%;
     justify-content: space-between;
-    grid-template-columns: auto auto auto;
   }
   #sold-cars-germany .legend .items .legend-item {
     justify-content: flex-start;
-  }
-  #sold-cars-germany .axis-y .tick {
-    display: none;
-  }
-  #sold-cars-germany .axis-y .tick:nth-of-type(2n + 1), #sold-cars-germany .axis-y .tick:first-of-type, #sold-cars-germany .axis-y .tick:last-of-type {
-    display: block;
-  }
-}
-@container (width < 40rem) {
-  #sold-cars-germany .axis-x .tick {
-    display: none;
-  }
-  #sold-cars-germany .axis-x .tick:nth-of-type(2n), #sold-cars-germany .axis-x .tick:first-of-type, #sold-cars-germany .axis-x .tick:last-of-type {
-    display: block;
+    align-items: flex-start;
   }
 }

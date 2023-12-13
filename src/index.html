@@ -19,20 +19,32 @@
   <link rel="stylesheet" href="./libs/slides.css"/>
 
   <link rel="stylesheet" href="./slides/custom.css"/>
-  <link rel="stylesheet" href="./slides/slide-specifics.scss"/>
-  <link rel="stylesheet" href="./slides/layouts/two-coloums.scss"/>
-  <link rel="stylesheet" href="./slides/layouts/three-coloumns.scss"/>
-  <link rel="stylesheet" href="./slides/layouts/figure.scss"/>
+  <link rel="stylesheet" href="./slides/slide-specifics.css"/>
+  <link rel="stylesheet" href="./slides/layouts/two-coloums.css"/>
+  <link rel="stylesheet" href="./slides/layouts/three-coloumns.css"/>
+  <link rel="stylesheet" href="./slides/layouts/figure.css"/>
 
-  <link rel="stylesheet" href="./libs/respvis.scss"/>
-  <link rel="stylesheet" href="./slides/intro/charts/platform-comparison-market-share/platform-comparison-market-share.scss"> </link>
-  <link rel="stylesheet" href="./slides/examples/charts/electric-power-consumption/electric-power-consumption.scss"> </link>
-  <link rel="stylesheet" href="./slides/examples/charts/market-shares/market-shares.scss"> </link>
-  <link rel="stylesheet" href="./slides/examples/charts/sold-cars-germany/sold-cars-germany.scss"> </link>
+  <link rel="stylesheet" href="./libs/respvis.css"/>
+  <link rel="stylesheet" href="./slides/intro/charts/platform-comparison-market-share/platform-comparison-market-share.css"> </link>
+  <link rel="stylesheet" href="./slides/examples/charts/electric-power-consumption/electric-power-consumption.css"> </link>
+  <link rel="stylesheet" href="./slides/examples/charts/market-shares/market-shares.css"> </link>
+  <link rel="stylesheet" href="./slides/examples/charts/sold-cars-germany/sold-cars-germany.css"> </link>
 
   <script src="./libs/chart-libs/plotly.min.js"> </script>
 
-  <link rel="stylesheet" href="./libs/chart-libs/chartist/styles.scss"> </link>
+  <script src="./libs/chart-libs/chartjs.umd.js"> </script>
+
+<!--  <script type="module">-->
+<!--    import Highcharts from './libs/chart-libs/highcharts/masters/highcharts.src.js';-->
+
+<!--    console.log(Highcharts)-->
+<!--    import {createChart} from "./slides/tools/highcharts/highcharts.js";-->
+<!--    document.addEventListener('DOMContentLoaded', () => {-->
+<!--      createChart('#highcharts-chart', Highcharts)-->
+<!--    })-->
+<!--  </script>-->
+
+  <link rel="stylesheet" href="./libs/chart-libs/chartist/styles.css"> </link>
 
   <script type="module" src="./slides/index.js"> </script>
 
@@ -43,5 +55,1544 @@
 </head>
 
 
-<body> </body>
+<body>
+
+<!--#region intro -->
+<section class="titleslide slide-title">
+
+  <h1>Responsive Visualization Patterns and Tools</h1>
+  <h2>David Egger<br/>
+    706.424 Seminar/Project Interactive and Visual Information Systems WS 2023<br/>
+    Graz University of Technology</h2>
+  <h3>Tue 12 Dec 2023</h3>
+
+  <a href="https://responsive-patterns-and-tools-slides.netlify.app">
+    https://responsive-patterns-and-tools-slides.netlify.app</a>
+
+
+  <div class="copyright">
+    <p>Copyright © 2023 by David Egger, except as otherwise noted. This
+      work is placed under a Creative Commons Attribution 4.0 International
+      (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>)
+      licence.</p>
+  </div>
+
+</section>
+
+
+
+<section class="slide-resp-vis">
+  <h1>Responsive Visualization</h1>
+
+  <ul>
+    <li>
+      Responsive visualizations adapt to device characteristics.
+    </li>
+    <li>
+      Wider factors affecting perception of visualizations [Horak, Aigner, Brehmer, Joshi and Tominski 2021] include:
+      <ul>
+        <li>
+          Usage factors
+        </li>
+        <li>
+          Environmental factors
+        </li>
+        <li>
+          Device factors
+        </li>
+        <li>
+          Data factors
+        </li>
+      </ul>
+    </li>
+    <li>Why is responsive visualization important?</li>
+  </ul>
+
+  <div class="column-wide">
+    <figure>
+      <div class="images">
+        <img src="../../images/devices/desktop_in_use.jpg" alt="Visualizations must be capable of being displayed on desktops devices and laptops." />
+      </div>
+      <figcaption>
+        Visualizations must be capable of being displayed desktops and laptops.<br/>
+        <span class="credit">
+                Photo by <a href="https://unsplash.com/@glenncarstenspeters?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Glenn Carstens-Peters</a> on <a href="https://unsplash.com/photos/person-using-macbook-pro-npxXWgQ33ZQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+            </span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <div class="images">
+        <img src="../../images/devices/smartphone_in_use.jpg" alt="Visualizations must be capable of being displayed on smartphones." />
+        <img src="../../images/devices/tablet_in_use.jpg" alt="Visualizations must be capable of being displayed on tablets." />
+      </div>
+      <figcaption>
+        Visualizations must be capable of being displayed on mobile devices.<br/>
+        <span class="credit">
+                Smartphone photo by <a href="https://unsplash.com/@mr_fresh?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Yura Fresh</a> on <a href="https://unsplash.com/photos/person-holding-space-gray-iphone-x-n31x0hhnzOs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+            </span>
+        <br/>
+        <span class="credit">
+                Tablet photo by <a href="https://unsplash.com/@rpnickson?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Roberto Nickson</a> on <a href="https://unsplash.com/photos/black-ipad-hLgYtX0rPgw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+            </span>
+      </figcaption>
+    </figure>
+
+    <figure>
+      <div class="images">
+        <img src="../../images/devices/smart_watch_in_use.jpg" alt="Visualizations must be capable of being displayed on smart watches." />
+      </div>
+      <figcaption>
+        Visualizations may even be capable of being displayed on wearables like smart watches.<br/>
+        <span class="credit">
+                Photo by <a href="https://unsplash.com/@sabina_ciesielska?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Sabina</a> on <a href="https://unsplash.com/photos/silver-aluminum-case-apple-watch-with-white-nike-sport-band-0zAHoJ1gnGg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+            </span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+
+
+<section class="slide-mobile-web respvis-slide">
+  <h1>Reason 1: Today's Web is Mobile</h1>
+  <figure id="devices-market-share-figure" class="figure-whole-iframe">
+    <!--    <div class="figure-whole-content-wrapper">-->
+    <!--        <img src="../../images/StatCounter-market-share-devices.png" alt="Market Share of Device Types"/>-->
+    <!--    </div>-->
+    <div class="chart" id="platform-comparison-market-share"> </div>
+    <figcaption>
+      Market share of device types by page views.<br/>
+      <span class="credit">
+            <a href="https://gs.statcounter.com/platform-market-share/desktop-mobile-tablet/worldwide/#monthly-201001-202311">StatCounter: Desktop vs Mobile vs Tablet Market Share Worldwide</a>
+        </span>
+    </figcaption>
+  </figure>
+  <!--<figure id="iframe-example3-figure" class="figure-whole-iframe">-->
+  <!--    &lt;!&ndash;    <iframe src="https://respvis.netlify.app/linecharts/linechart-multiline/linechart-multiline" frameborder="0"> </iframe>&ndash;&gt;-->
+  <!--    <div class="chart" id="sold-cars-germany"> </div>-->
+  <!--    <figcaption>-->
+  <!--        Interactive scatter plot rendered via RespVis-->
+  <!--        &lt;!&ndash;        <button id="iframe-example2-resizer" type="button" style="width: fit-content">Resize</button>&ndash;&gt;-->
+  <!--        &lt;!&ndash;        <input type="range" id="iframe-example2-range-resizer" name="volume" min="20" max="90" value="90" />&ndash;&gt;-->
+  <!--    </figcaption>-->
+  <!--</figure>-->
+</section>
+
+
+<section class="slide-resp-vis-important">
+  <h1>Reason 2: Scaling Down Whole Visualization is Not Sufficient</h1>
+  <figure class="figure-whole" id="grouped_bar_full_width_figure">
+    <div class="svg-wrapper-whole" id="grouped_bar_full_width">
+      <svg class="chart chart-bar-grouped chart-cartesian" xmlns="http://www.w3.org/2000/svg" data-flipped="false" viewBox="0, 0, 1351, 725" display="grid" overflow="visible"><svg class="draw-area" x="121" y="79" width="1135" height="581" display="grid" overflow="visible"><rect class="background" x="0" y="0" width="1135" height="581" opacity="0" overflow="visible"></rect><g class="series-bar series-bar-grouped" transform="translate(0, 0)" overflow="visible"><rect class="bar" x="29" y="531" width="57" height="50" data-style="categorical-0" data-category="Austria" data-key="Austria/2020" data-subcategory="2020" fill="rgb(79, 140, 157)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="94" y="528" width="57" height="52" data-style="categorical-1" data-category="Austria" data-key="Austria/2021" data-subcategory="2021" fill="rgb(226, 50, 9)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="158" y="524" width="57" height="56" data-style="categorical-2" data-category="Austria" data-key="Austria/2022" data-subcategory="2022" fill="rgb(83, 147, 34)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="252" y="402" width="57" height="178" data-style="categorical-0" data-category="Italy" data-key="Italy/2020" data-subcategory="2020" fill="rgb(79, 140, 157)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="316" y="388" width="57" height="192" data-style="categorical-1" data-category="Italy" data-key="Italy/2021" data-subcategory="2021" fill="rgb(226, 50, 9)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="381" y="375" width="57" height="206" data-style="categorical-2" data-category="Italy" data-key="Italy/2022" data-subcategory="2022" fill="rgb(83, 147, 34)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="474" y="265" width="57" height="315" data-style="categorical-0" data-category="France" data-key="France/2020" data-subcategory="2020" fill="rgb(79, 140, 157)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="539" y="242" width="57" height="338" data-style="categorical-1" data-category="France" data-key="France/2021" data-subcategory="2021" fill="rgb(226, 50, 9)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="604" y="217" width="57" height="363" data-style="categorical-2" data-category="France" data-key="France/2022" data-subcategory="2022" fill="rgb(83, 147, 34)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="697" y="93" width="57" height="487" data-style="categorical-0" data-category="Germany" data-key="Germany/2020" data-subcategory="2020" fill="rgb(79, 140, 157)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="761" y="76" width="57" height="504" data-style="categorical-1" data-category="Germany" data-key="Germany/2021" data-subcategory="2021" fill="rgb(226, 50, 9)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="826" y="47" width="57" height="534" data-style="categorical-2" data-category="Germany" data-key="Germany/2022" data-subcategory="2022" fill="rgb(83, 147, 34)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="919" y="475" width="57" height="105" data-style="categorical-0" data-category="Netherlands" data-key="Netherlands/2020" data-subcategory="2020" fill="rgb(79, 140, 157)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="984" y="471" width="57" height="110" data-style="categorical-1" data-category="Netherlands" data-key="Netherlands/2021" data-subcategory="2021" fill="rgb(226, 50, 9)" overflow="visible" stroke="rgb(0, 0, 0)"></rect><rect class="bar" x="1049" y="462" width="57" height="118" data-style="categorical-2" data-category="Netherlands" data-key="Netherlands/2022" data-subcategory="2022" fill="rgb(83, 147, 34)" overflow="visible" stroke="rgb(0, 0, 0)"></rect></g><g class="series-label series-label-bar" transform="translate(0, 0)" font-size="11.2px" overflow="visible" pointer-events="none"><text class="label" transform="translate(58, 527)" font-size="1em" opacity="1" data-key="Austria/2020" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">190k</text><text class="label" transform="translate(122, 525)" font-size="1em" opacity="1" data-key="Austria/2021" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">200k</text><text class="label" transform="translate(187, 521)" font-size="1em" opacity="1" data-key="Austria/2022" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">220k</text><text class="label" transform="translate(280, 399)" font-size="1em" opacity="1" data-key="Italy/2020" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">680k</text><text class="label" transform="translate(345, 385)" font-size="1em" opacity="1" data-key="Italy/2021" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">730k</text><text class="label" transform="translate(410, 371)" font-size="1em" opacity="1" data-key="Italy/2022" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">780k</text><text class="label" transform="translate(503, 262)" font-size="1em" opacity="1" data-key="France/2020" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">1.2M</text><text class="label" transform="translate(568, 239)" font-size="1em" opacity="1" data-key="France/2021" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">1.3M</text><text class="label" transform="translate(632, 214)" font-size="1em" opacity="1" data-key="France/2022" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">1.4M</text><text class="label" transform="translate(725, 90)" font-size="1em" opacity="1" data-key="Germany/2020" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">1.8M</text><text class="label" transform="translate(790, 73)" font-size="1em" opacity="1" data-key="Germany/2021" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">1.9M</text><text class="label" transform="translate(855, 43)" font-size="1em" opacity="1" data-key="Germany/2022" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">2.0M</text><text class="label" transform="translate(948, 472)" font-size="1em" opacity="1" data-key="Netherlands/2020" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">400k</text><text class="label" transform="translate(1013, 467)" font-size="1em" opacity="1" data-key="Netherlands/2021" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">420k</text><text class="label" transform="translate(1077, 459)" font-size="1em" opacity="1" data-key="Netherlands/2022" data-align-h="center" data-align-v="top" overflow="visible" text-anchor="middle">450k</text></g></svg><g class="header" transform="translate(8, 32)" display="grid" overflow="visible"><g class="title" transform="translate(424, 0)" overflow="visible"><text dominant-baseline="hanging" font-size="24px" letter-spacing="2.4px" overflow="visible">Total Remuneration 2018 to 2020</text></g><g class="subtitle" transform="translate(664, 31)" overflow="visible"><text dominant-baseline="hanging" overflow="visible"></text></g></g><g class="legend" transform="translate(1264, 87)" cursor="default" display="flex" font-size="12.8px" overflow="visible"><text class="title" transform="translate(6, 0)" dominant-baseline="hanging" font-size="19.2px" letter-spacing="1.92px" overflow="visible">Year</text><g class="items" transform="translate(3, 25)" display="flex" overflow="visible"><g class="legend-item" data-style="categorical-0" data-key="2020" transform="translate(3, 3)" fill="rgb(79, 140, 157)" display="flex" overflow="visible" stroke="rgb(79, 140, 157)"><path class="symbol" transform="translate(0, 0)" d="M 0 0 h 10 v 10 h -10 v -10" overflow="visible" stroke="rgb(0, 0, 0)"></path><text class="label" transform="translate(16, 0)" dominant-baseline="hanging" overflow="visible" stroke="none">2020</text></g><g class="legend-item" data-style="categorical-1" data-key="2021" transform="translate(3, 28)" fill="rgb(226, 50, 9)" display="flex" overflow="visible" stroke="rgb(226, 50, 9)"><path class="symbol" transform="translate(0, 0)" d="M 0 0 h 10 v 10 h -10 v -10" overflow="visible" stroke="rgb(0, 0, 0)"></path><text class="label" transform="translate(16, 0)" dominant-baseline="hanging" overflow="visible" stroke="none">2021</text></g><g class="legend-item" data-style="categorical-2" data-key="2022" transform="translate(3, 52)" fill="rgb(83, 147, 34)" display="flex" overflow="visible" stroke="rgb(83, 147, 34)"><path class="symbol" transform="translate(0, 0)" d="M 0 0 h 10 v 10 h -10 v -10" overflow="visible" stroke="rgb(0, 0, 0)"></path><text class="label" transform="translate(16, 0)" dominant-baseline="hanging" overflow="visible" stroke="none">2022</text></g></g></g><g class="axis axis-left axis-y" transform="translate(8, 79)" display="grid" font-size="11.2px" overflow="visible"><g class="title" transform="translate(0, 290)" overflow="visible"><text dominant-baseline="hanging" font-size="16.8px" letter-spacing="1.68px" overflow="visible" text-anchor="middle" transform="matrix(0, -1, 1, 0, 0, 0)">Total Remuneration</text></g><g class="subtitle" transform="translate(22, 290)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="middle" transform="matrix(0, -1, 1, 0, 0, 0)">[EU]</text></g><g class="ticks-transform" transform="translate(44, 0)" overflow="visible"><g class="ticks" transform="translate(70, 0)" overflow="visible"><path class="domain" d="M-6,581.5H0.5V0.5H-6" fill="none" overflow="visible" stroke="rgb(0, 0, 0)"></path><g class="tick" transform="translate(0,581.5)" data-key="0" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">0</text></g></g><g class="tick" transform="translate(0,528.6818181818181)" data-key="200000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">200,000</text></g></g><g class="tick" transform="translate(0,475.8636363636363)" data-key="400000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">400,000</text></g></g><g class="tick" transform="translate(0,423.04545454545456)" data-key="600000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">600,000</text></g></g><g class="tick" transform="translate(0,370.22727272727275)" data-key="800000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">800,000</text></g></g><g class="tick" transform="translate(0,317.4090909090909)" data-key="1000000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">1,000,000</text></g></g><g class="tick" transform="translate(0,264.5909090909091)" data-key="1200000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">1,200,000</text></g></g><g class="tick" transform="translate(0,211.77272727272728)" data-key="1400000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">1,400,000</text></g></g><g class="tick" transform="translate(0,158.95454545454544)" data-key="1600000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">1,600,000</text></g></g><g class="tick" transform="translate(0,106.13636363636361)" data-key="1800000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">1,800,000</text></g></g><g class="tick" transform="translate(0,53.318181818181834)" data-key="2000000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">2,000,000</text></g></g><g class="tick" transform="translate(0,0.5)" data-key="2200000" overflow="visible"><line x2="-6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(-9, 0)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="end">2,200,000</text></g></g></g></g></g><g class="axis axis-bottom axis-x" transform="translate(121, 660)" display="grid" font-size="11.2px" overflow="visible"><g class="title" transform="translate(567, 35)" overflow="visible"><text dominant-baseline="hanging" font-size="16.8px" letter-spacing="1.68px" overflow="visible" text-anchor="middle">Country</text></g><g class="subtitle" transform="translate(567, 57)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="middle"></text></g><g class="ticks-transform" transform="translate(0, 0)" overflow="visible"><g class="ticks" transform="translate(0, 0)" overflow="visible"><path class="domain" d="M0.5,6V0.5H1135.5V6" fill="none" overflow="visible" stroke="rgb(0, 0, 0)"></path><g class="tick" transform="translate(122.40196078431372,0)" data-key="Austria" overflow="visible"><line y2="6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(0, 9)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="middle">Austria</text></g></g><g class="tick" transform="translate(344.95098039215685,0)" data-key="Italy" overflow="visible"><line y2="6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(0, 9)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="middle">Italy</text></g></g><g class="tick" transform="translate(567.5,0)" data-key="France" overflow="visible"><line y2="6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(0, 9)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="middle">France</text></g></g><g class="tick" transform="translate(790.0490196078431,0)" data-key="Germany" overflow="visible"><line y2="6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(0, 9)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="middle">Germany</text></g></g><g class="tick" transform="translate(1012.5980392156862,0)" data-key="Netherlands" overflow="visible"><line y2="6" overflow="visible" stroke="rgb(0, 0, 0)"></line><g class="pivot" transform="translate(0, 9)" overflow="visible"><text dominant-baseline="hanging" overflow="visible" text-anchor="middle">Netherlands</text></g></g></g></g></g></svg>
+    </div>
+    <figcaption>
+      A grouped bar chart is not readable anymore, if scaled down too much.
+    </figcaption>
+  </figure>
+</section>
+
+
+
+<section class="slide-resp-web">
+  <h1>Responsive Web Design</h1>
+  <ul>
+    <li>Originated from need to avoid horizontal scrolling.</li>
+    <li>Term “Responsive Web Design” coined by Ethan Marcotte [Marcotte 2010]:
+      <ul>
+        <li>Flexible grids</li>
+        <li>Flexible images</li>
+        <li>Media queries</li>
+      </ul>
+    </li>
+    <li>Responsive design strategies:
+      <ul>
+        <li>Desktop-First</li>
+        <li>Mobile-First</li>
+        <li>Everything-in-Parallel</li>
+      </ul>
+    </li>
+    <li>Content elements on web pages, such as images and charts (visualizations), also
+      have to become responsive.</li>
+  </ul>
+</section>
+
+
+
+<section class="slide-modern-css">
+  <h1>Modern CSS Techniques</h1>
+  <p>
+    “Modern CSS” techniques allow new approaches [Shadeed 2023]:
+  </p>
+  <ul>
+    <li>CSS Flexbox</li>
+    <li>CSS Grid</li>
+    <li>CSS comparison functions</li>
+    <li>Size container queries</li>
+    <li>Container query units</li>
+    <li>Style container queries</li>
+  </ul>
+</section>
+
+<!--#endregion -->
+
+<!--#region patterns -->
+<section class="slide-transition">
+  <h1>Responsive Visualization Patterns</h1>
+</section>
+
+
+<section>
+  <h1>Responsive Visualization Patterns</h1>
+  <ul>
+    <li>“Design Patterns and Trade-Offs in Responsive Visualization for Communication”
+      [Kim, Moritz and Hullman 2021]:
+      <ul>
+        <li>Targets = <i>What</i> is changed (data, encoding, interaction, narrative, references/layout).</li>
+        <li>Actions = <i>How</i> something is changed (recompose, rescale, transpose, reposition, compensate).</li>
+        <li>Pattern = Applying Action to Target to get from State A to State B.</li>
+      </ul>
+    </li>
+    <li>Types of responsive visualization pattern:
+      <ul>
+        <li>Visual Patterns: Change Visual Representation.</li>
+        <li>Interaction Patterns: Enable User to Interact with Visualization.</li>
+        <li>Data Patterns: Transform Underlying Data.</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+
+<section class="slide-patterns-overview">
+  <h1>Visual Patterns</h1>
+  <ul>
+    <li>V1: Scaling Chart Down</li>
+    <li>V2: Repositioning Element Labels</li>
+    <li>V3: Using Tooltips Instead of Element Labels</li>
+    <li>V4: Rotating Axis Labels</li>
+    <li>V5: Shortening Labels and Titles</li>
+    <li>V6: Scaling Labels Between Minimum and Maximum Size</li>
+    <li>V7: Scaling Down Visual Elements</li>
+    <li>V8: Hiding Elements and Labels</li>
+    <li>V9: Rotating Chart 90°</li>
+    <li>V10: Using a Different Chart</li>
+  </ul>
+</section>
+
+
+<section class="slide-patterns-overview">
+  <h1>Interaction Patterns</h1>
+  <ul>
+    <li>I1: Supporting Toolbar and Menus</li>
+    <li>I2: Filtering Dimensions and Records</li>
+    <li>I3: Supporting Zooming</li>
+  </ul>
+</section>
+
+
+<section class="slide-patterns-overview">
+  <h1>Data Patterns</h1>
+  <ul>
+    <li>D1: Applying Data Generalization</li>
+    <li>D2: Applying Data Aggregation</li>
+    <li>D3: Applying Group Markers</li>
+  </ul>
+</section>
+<!--#endregion -->
+
+<!--#region examples -->
+<section class="respvis-slide">
+  <h1>Example 1</h1>
+
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <div>
+        <p>Includes Patterns:</p>
+        <ul>
+          <li>V2: Repositioning Element Labels</li>
+          <li>V3: Using Tooltips Instead of Element Labels</li>
+          <li>V5: Shortening Labels and Titles</li>
+          <li>V7: Scaling Down Visual Elements</li>
+          <li>V9: Rotating Chart 90°</li>
+          <li>I1: Supporting Toolbar and Menus</li>
+          <li>I2: Filtering Dimensions and Records (partially):</li>
+        </ul>
+      </div>
+      <figure id="iframe-example1-figure" class="figure-tool-resp">
+        <div class="chart" id="market-shares-chart"></div>
+        <figcaption>
+          Market share of device types by page views.
+          Interactive stacked bar chart rendered via RespVis.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<section class="respvis-slide">
+  <h1>Example 2</h1>
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <div>
+        <p>Includes Patterns:</p>
+        <ul>
+          <li>V3: Using Tooltips Instead of Element Labels</li>
+          <li>V4: Rotating Axis Labels</li>
+          <li>V5: Shortening Labels and Titles</li>
+          <li>V6: Scaling Labels Between Minimum and Maximum Size</li>
+          <li>V7: Scaling Down Visual Elements</li>
+          <li>V8: Hiding Elements and Labels</li>
+          <li>I1: Supporting Toolbar and Menus</li>
+        </ul>
+      </div>
+      <figure id="iframe-example2-figure" class="figure-tool-resp">
+        <div class="chart" id="electric-power-consumption"></div>
+        <figcaption>
+          Interactive multi-line chart rendered via RespVis.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+</section>
+
+
+<section class="respvis-slide">
+  <!--<ul><li>Missing Patterns: V6, V10, I2, I3, D1, D2, D3</li></ul>-->
+  <!--<a href="https://respvis.netlify.app/scatterplots/scatterplot/scatterplot">https://respvis.netlify.app/scatterplots/scatterplot/scatterplot</a>-->
+  <!--<a href="https://projects.isds.tugraz.at/respvis/demos/resp-scatterplot/resp-scatterplot.html">https://projects.isds.tugraz.at/respvis/demos/resp-scatterplot/resp-scatterplot.html</a>-->
+  <!--<a href="http://diversitaet.steiermark.at/steirische-vielfalt/">http://diversitaet.steiermark.at/steirische-vielfalt/</a>-->
+  <h1>Example 3</h1>
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <div>
+        <p>Includes Patterns:</p>
+        <ul>
+          <li>V3: Using Tooltips Instead of Element Labels</li>
+          <li>V5: Shortening Labels and Titles</li>
+          <li>V6: Scaling Labels Between Minimum and Maximum Size</li>
+          <li>V7: Scaling Down Visual Elements</li>
+          <li>V8: Hiding Elements and Labels</li>
+          <li>I1: Supporting Toolbar and Menus</li>
+          <li>I3: Supporting Zooming</li>
+        </ul>
+      </div>
+      <figure id="iframe-example3-figure" class="figure-tool-resp">
+        <div class="chart" id="sold-cars-germany"></div>
+        <figcaption>
+          Interactive scatter plot rendered via RespVis.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+<!--#endregion -->
+
+<!--#region tools -->
+<section class="slide-transition">
+  <h1>Responsive Visualization Tools</h1>
+</section>
+
+
+
+<section>
+  <h1>Responsive Visualization Libraries, Systems, and Tools</h1>
+  <ul>
+    <li>Libraries:
+      <ul>
+        <li>Chart.js</li>
+        <li>Plotly.js</li>
+        <li>Chartist</li>
+        <li>Highcharts</li>
+      </ul>
+    </li>
+    <li>Systems:
+      <ul>
+        <li>Hoffswell Visualization System</li>
+        <li>Power BI</li>
+      </ul>
+    </li>
+    <li>Transformation tools:
+      <ul>
+        <li>MobileVisFixer</li>
+        <li>Setlur Line Chart Resize Algorithm</li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+
+
+<section class="slide-evaluation-tools">
+  <h1>Evaluation</h1>
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <ul>
+        <li>Evaluation criteria:
+          <ul>
+            <li>Render method</li>
+            <li>Chart variety</li>
+            <li>Licensing</li>
+            <li>Bundle size</li>
+            <li>Popularity</li>
+            <li>Performance</li>
+            <li>Provided functionality</li>
+          </ul>
+        </li>
+        <li>Evaluation process:
+          <ul>
+            <li>Create bar charts with provided data for all (available) tools.</li>
+            <li>Performance test: Measure frame rate (in fps) while resizing chart for 10 s.</li>
+            <li>Conduct performance test with:
+              <ul>
+                <li>7 bars</li>
+                <li>70 bars</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="grid-table-wrapper">
+        <table class="grid-table">
+          <thead>
+            <tr class="header">
+            <td class="cell">City</td>
+            <td class="cell">Population</td>
+          </tr>
+          </thead>
+          <tbody>
+            <tr class="row">
+              <td class="cell">Vienna</td>
+              <td class="cell">1973403</td>
+            </tr>
+            <tr class="row">
+              <td class="cell">Graz</td>
+              <td class="cell">289440</td>
+            </tr>
+            <tr class="row">
+              <td class="cell">Linz</td>
+              <td class="cell">210165</td>
+            </tr>
+            <tr class="row">
+              <td class="cell">Salzburg</td>
+              <td class="cell">155021</td>
+            </tr>
+            <tr class="row">
+              <td class="cell">Innsbruck</td>
+              <td class="cell">132493</td>
+            </tr>
+            <tr class="row">
+              <td class="cell">Klagenfurt</td>
+              <td class="cell">101403</td>
+            </tr>
+            <tr class="row">
+              <td class="cell">Villach</td>
+              <td class="cell">65127</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="table-caption">
+          Dataset used for evaluating tools.<br/>
+          <span class="credit">
+                Population of six Austrian cities from the <a href="https://www.kaggle.com/datasets/juanmah/world-cities" target="_blank">world cities dataset</a> [Juanma 2023].
+            </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</section>
+
+
+
+<section class="slide-tool-kit-1">
+  <h1>Chart.js</h1>
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <ul>
+        <li>Open-source responsive visualization library.</li>
+        <li>Drawing via Canvas2D.</li>
+        <li>Eight base chart types.</li>
+        <li>Default configuration leads to appealing results.</li>
+        <li>Offers basic interactivity.</li>
+        <li>Minified bundle 66.6 KB.</li>
+        <li>62 k GitHub stars.</li>
+        <li>Performance: 57 fps with 7-bar chart, 53 fps with 70-bar chart.</li>
+      </ul>
+      <figure class="figure-tool-resp">
+        <div class="canvas-chart-wrapper">
+          <canvas id="chartjs-chart"> </canvas>
+        </div>
+        <figcaption>
+          Interactive bar chart rendered via Chart.js.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+</section>
+
+
+
+<section class="slide-tool-kit-2">
+  <h1>Plotly.js</h1>
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <ul>
+        <li>Open-source responsive visualization library.</li>
+        <li>Drawing via SVG-DOM (D3).</li>
+        <li>Over 40 chart types.</li>
+        <li>Default configuration not straightforward.</li>
+        <li>Interactive toolbar by default.</li>
+        <li>Event listeners can be attached to individual elements.</li>
+        <li>Minified bundle 1.1 MB.</li>
+        <li>15.9 k GitHub stars.</li>
+        <li>Performance: 54 fps with 7-bar chart, 20 fps with 70-bar chart.</li>
+      </ul>
+      <figure class="figure-tool-resp">
+        <div class="chart" id="plotlyjs-chart"></div>
+        <figcaption>
+          Interactive bar chart rendered via Plotly.js.
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="slide-tool-kit-3 chartist-slide">
+  <h1>Chartist</h1>
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <ul>
+        <li>Lightweight open-source responsive visualization library.</li>
+        <li>Drawing via SVG-DOM (D3).</li>
+        <li>Offers bar, line and pie charts as well as subtypes and variations.</li>
+        <li>Offers a default, customizable style sheet.</li>
+        <li>Event listeners can be attached to individual elements.</li>
+        <!--            <li>Titles cannot be added to SVGs (plugin for axis titles exists)</li>-->
+        <!--            <li>Scaling of elements only via container or media queries</li>-->
+        <li>Minified bundle 11.7 KB.</li>
+        <li>13.3 K GitHub stars.</li>
+        <li>Performance: 57 fps with 7-bar, 49 fps with 70-bar chart.</li>
+      </ul>
+      <figure class="figure-tool-resp">
+        <div class="chart" id="chartist-chart"></div>
+        <figcaption>
+          Interactive bar chart rendered via Chartist
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="slide-tool-kit-4">
+  <h1>Highcharts</h1>
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <ul>
+        <li>Commercial responsive visualization library.</li>
+        <li>Free for non-commercial and educational purposes.</li>
+        <li>Source available, but not open-source.</li>
+        <li>Drawing via SVG-DOM.</li>
+        <li>Offers over 50 different visualization types.</li>
+        <li>Offers smooth default animations on initial load.</li>
+        <li>Event listeners can be attached to individual elements.</li>
+        <!--            <li>Offers own modules for dashboards, maps, stocks and gantt charts</li>-->
+        <!--            <li>Provides extensive documentation (with AI chatbot)</li>-->
+        <li>Minified bundle 96.5 KB.</li>
+        <li>11.5 K GitHub stars.</li>
+        <li>Performance: 56 fps with 7-bar, 52 fps with 70-bar chart.</li>
+      </ul>
+      <figure class="figure-tool-resp">
+        <div class="chart" id="highcharts-chart"> </div>
+        <figcaption>Interactive bar chart rendered via Highcharts.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="slide-tool-system-1">
+  <h1>Hoffswell Visualization System</h1>
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <ul>
+        <li>Responsive visualization system.</li>
+        <li>Tool not publicly available.</li>
+        <li>Built with Vega-Lite.</li>
+        <li>Multiple visualization views in parallel.</li>
+        <li>Modifications are applied to all views by default.</li>
+        <li>Views can be locked or unlocked for propagation.</li>
+        <li>If two views are unlocked, differences are adjustable.</li>
+        <li><a href="https://jhoffswell.github.io/website/resources/supplemental/responsive-supplemental/index.html" target="_blank">Example gallery</a> contains created visualizations and showcase videos.</li>
+      </ul>
+      <figure class="figure-tool-stat">
+        <img src="../../images/tools/hoffswell-vis-system.png" alt="Hoffswell Visualization System"/>
+        <figcaption>
+          Techniques for Flexible Responsive Visualization Design [Hoffswell, Li and Liu 2020]<br/>
+          <span class="credit">Copyright © 2020 Association of Computing Machinery and used under § 42f.(1) of Austrian copyright law</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+</section>
+
+
+
+
+
+<section class="slide-tool-system-2">
+  <h1>Power BI</h1>
+
+
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <ul>
+        <li>Responsive visualization system.</li>
+        <li>Set of services provided by microsoft.</li>
+        <li>Enables collecting, analyzing, transforming data.</li>
+        <li>Enables creating and collaborative sharing of visualizations and reports.</li>
+        <li>Visualization will adapt automatically if size is changed during development.</li>
+        <li>Different reports for mobile and desktop view can be created.</li>
+        <li>Visualizations will not automatically adapt in published reports.</li>
+      </ul>
+      <!--        figure-tool-stat-->
+      <div class="figure-tool-stacked">
+        <figure>
+          <div class="images" id="power_bi_large">
+            <!--#region power_bi_large -->
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg
+                viewBox="0 0 583.99994 584"
+                xml:space="preserve"
+                id="svg2"
+                version="1.1"
+                sodipodi:docname="BarChartPowerBi_Large.svg"
+                inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:svg="http://www.w3.org/2000/svg"
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:cc="http://creativecommons.org/ns#"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"><sodipodi:namedview
+     id="namedview461"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="0.56373768"
+     inkscape:cx="533.93628"
+     inkscape:cy="449.67723"
+     inkscape:window-width="1488"
+     inkscape:window-height="752"
+     inkscape:window-x="2108"
+     inkscape:window-y="71"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2"
+     width="584px"
+     units="mm"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" /><metadata
+                id="metadata8"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+                rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+                id="defs6"><clipPath
+       id="clipPath18"
+       clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path16"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath32"
+                clipPathUnits="userSpaceOnUse"><path
+         id="path30"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath38"
+                clipPathUnits="userSpaceOnUse"><path
+         id="path36"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath44"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path42"
+         d="M 4075.0002,75.000008 H 75.000008 V 2325.0002 H 4075.0002 Z m -3.125,109.375012 H 78.125008 V 575.00006 H 4071.8752 Z" /></clipPath><clipPath
+                id="clipPath50"
+                clipPathUnits="userSpaceOnUse"><path
+         id="path48"
+         d="M 73,180 H 4077 V 581 H 73 Z" /></clipPath><mask
+                id="mask52"
+                height="1"
+                width="1"
+                y="0"
+                x="0"
+                maskUnits="userSpaceOnUse"><g
+         id="g60"><g
+           style="opacity:0.1098"
+           id="g58"
+           clip-path="url(#clipPath50)"><g
+             id="g56"
+             transform="matrix(4004,0,0,-401,73,581)"><image
+               id="image54"
+               xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAD6QAAAGRCAYAAAB4jewtAAAABHNCSVQICAgIfAhkiAAAH+dJREFUeJzs3b2KFd0WhtG3VtXuv0BBtFETAxMzvf/UqzAxMmgQGvwBofeuqhM03ecceMMG+T7GgBWsooI1L+BhTofDYd/3Pfu+Z9u27PueB9M0/d8dAAAAAAAAAAAAAAAAAACAf4cxRrZte7wvy5LT6ZRlWTJNU9Z1zfIQoT+E52OMTNOUaZqSJIfD4a88HgAAAAAAAAAAAAAAAAAAgKe1rmvGGJnn+TE6P51OSZJ5nrOua9Z1TZLs+57lIUYfY+T8/DxXV1c5Pz/PPM/Z9/0xTAcAAAAAAAAAAAAAAAAAAOCfbV3XzPOcMUaSZNu2nE6nHI/HHI/HjDFyd3f3GKkvyf1W9MvLy1xfX+ft27d5+fJlLi4ukuRxczoAAAAAAAAAAAAAAAAAAAD/bA9B+jRN2bYtyX2U/uvXr/z8+TM3Nze5vb3Njx8/kiTLGCPLsuTZs2d59+5dPn78mPfv3+f58+cZY+RwOPzNeQAAAAAAAAAAAAAAAAAAAHgi27ZlWZbs+57T6ZQxRvZ9z/fv33Nzc5PPnz9n27b8+fMnp9PpvxvSr66u8vr163z48CGfPn3Kq1evMsbIPM9/eyYAAAAAAAAAAAAAAAAAAACewLquOTs7y7Ztubu7e4zTv337lq9fv+bLly+5vb3NGCPTNGXZ9z37vmeMkcvLy7x48SJv3rzJ9fV1pmnKvu9/eyYAAAAAAAAAAAAAAAAAAACewLquOT8/z+l0yt3dXQ6HQ/Z9z+/fv3N5eZmrq6uMMbKu6/029W3b8nCSZJ7nLMuSeZ7vi/Vl+csjAQAAAAAAAAAAAAAAAAAA8JQemvLD4ZAkubi4eGzM13XN8Xi8/2+e54wxMsZIkseN6P/7DQAAAAAAAAAAAAAAAAAAgH+H0+mUZVlyOBxyPB4zTVMOh0O2bcs8z1nXNWdnZ9m2LYpzAAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAPynvXtZcSPLojC84iJhSOOB3//dDB5ZAye+CFIZiksNTKq7YA2r2rj5PojJYROc8wA/GwCoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABANY/jryb9OI6M45jz+Zx5nrPve5Zlybt3737zFQEAAAAAAAAAAAAAAAAAAPgnrOua0+mUJLnf75nn+W/n67pmGIYsy5IkmZdlyel0yrZt2bYt9/s967pm3/ckyTAMv+clAAAAAAAAAAAAAAAAAAAA/GvGccwwDNn3PcdxPNryt/PjODK/Db8N3u/3LMuSbdseZwAAAAAAAAAAAAAAAAAAAPz5tm17bEg/jiPHcWRd10dfvm1bpmnKPM+/NqgPw5B5njOOY9Z1zc+fP/P8/Jxpmh6DAAAAAAAAAAAAAAAAAAAA/PmWZcn5fH5sQB+GIa+vr/n69Wuu12teXl6y73umafoVpB/HkX3fH0OfPn3K+XzOx48fM8+zDekAAAAAAAAAAAAAAAAAAAD/J9Z1zTRNGYbh8d1ut1wul1wulzw/P+f19fUxPye/Kvbv37/n8+fPGYYhX758ydPTU6ZpyrZtv+0xAAAAAAAAAAAAAAAAAAAA/LPelpqP45hxHLMsS759+5YfP37kcrnker0+ZoYkR5KcTqe8f/8+Hz58yNPTU+Z5fqxZBwAAAAAAAAAAAAAAAAAA4M83TVPu93v2fc80TZmmKeu65na7ZVmWXK/XLMuSl5eXbNuW4XQ6HW91+jRNmec54zgmyeMnAAAAAAAAAAAAAAAAAAAA/PnO53Nut1u2bcs8z5mmKdu2ZV3XHMeRbduSJNu25TiO/2xI/2/DMGQYhv/13QEAAAAAAAAAAAAAAAAAAPiN3pahv/kL737lY+nvGGgAAAAASUVORK5CYII="
+               transform="matrix(1,0,0,-1,0,1)"
+               preserveAspectRatio="none"
+               style="image-rendering:optimizeSpeed"
+               height="1"
+               width="1" /></g></g></g></mask><clipPath
+                id="clipPath70"
+                clipPathUnits="userSpaceOnUse"><path
+         id="path68"
+         d="M 65,183 H 4085 V 599 H 65 Z" /></clipPath><mask
+                id="mask72"
+                height="1"
+                width="1"
+                y="0"
+                x="0"
+                maskUnits="userSpaceOnUse"><g
+         id="g80"><g
+           style="opacity:0.1294"
+           id="g78"
+           clip-path="url(#clipPath70)"><g
+             id="g76"
+             transform="matrix(4020,0,0,-416,65,599)"><image
+               id="image74"
+               xlink:href="data:image/png;base64,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AQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAACA/7R3b7mNG1sYRjeLlJMAecr8JxkktnnXeQiKKcmyJXf3dhKctQCCtG6kB/DhBwAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAA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"
+               transform="matrix(1,0,0,-1,0,1)"
+               preserveAspectRatio="none"
+               style="image-rendering:optimizeSpeed"
+               height="1"
+               width="1" /></g></g></g></mask><clipPath
+                id="clipPath92"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path90"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath110"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path108"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath122"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path120"
+         d="M 240.62503,75.000008 H 1106.2501 V 1156.2501 H 240.62503 Z" /></clipPath><clipPath
+                id="clipPath136"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path134"
+         d="M 256.25003,175.00002 H 1090.6251 V 275.00004 H 256.25003 Z" /></clipPath><clipPath
+                id="clipPath150"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path148"
+         d="M 256.25003,284.37503 H 1090.6251 V 1140.6251 H 256.25003 Z" /></clipPath><clipPath
+                id="clipPath202"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path200"
+         d="M 256.25003,284.37503 H 1090.6251 V 1139.3751 H 256.25003 Z" /></clipPath><clipPath
+                id="clipPath252"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path250"
+         d="M 533.75006,309.37503 H 1090.6251 V 855.62515 H 533.75006 Z" /></clipPath><clipPath
+                id="clipPath276"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path274"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath288"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path286"
+         d="M 2265.6252,131.25001 H 4062.5004 V 231.25003 H 2265.6252 Z" /></clipPath><clipPath
+                id="clipPath302"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path300"
+         d="M 2265.6252,243.75003 H 4062.5004 V 1940.6251 H 2265.6252 Z" /></clipPath><clipPath
+                id="clipPath354"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path352"
+         d="M 2265.6252,243.75003 H 4062.5004 V 1940.0001 H 2265.6252 Z" /></clipPath><clipPath
+                id="clipPath404"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path402"
+         d="M 2585.6252,268.75003 H 4062.5004 V 1613.7501 H 2585.6252 Z" /></clipPath></defs><g
+                transform="matrix(0.31999998,0,0,0.31999998,-357.22705,-79.394229)"
+                id="g10"><g
+       id="g101270"
+       style="display:inline"
+       transform="translate(-1133.6656,116.85697)"><g
+         id="g270"><g
+           clip-path="url(#clipPath276)"
+           id="g272"><g
+             transform="matrix(3.1250002,0,0,3.1250002,2250.0002,131.25001)"
+             id="g278"><path
+               id="path280"
+               style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               d="M 0,0 H 585 V 584 H 0 Z" /></g></g></g><g
+                id="g282"><g
+           clip-path="url(#clipPath288)"
+           id="g284"><g
+             transform="matrix(3.1250002,0,0,3.1250002,2250.0002,131.25001)"
+             id="g290"><text
+   id="text294"
+   style="font-variant:normal;font-weight:normal;font-size:30.66px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#252423;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(118.67187,26)"><tspan
+     id="tspan292"
+     y="0"
+     x="0 15.868942 30.839638 45.750458 60.870865 68.895157 83.192169 92.548866 99.375488 114.34618 129.69115 136.80225 151.77293 160.09665 167.20775 184.69351 199.81392 214.09596 223.45265 234.95015 241.77678 256.07379 271.41876 278.52985 295.37189 302.19852 311.55521 318.38184 333.35254"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30.6599998px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Population of Austrian Cities</tspan></text>
+</g></g></g><g
+                id="g296"><g
+           clip-path="url(#clipPath302)"
+           id="g298"><g
+             transform="matrix(3.1250002,0,0,3.1250002,2585.6252,1612.1876)"
+             id="g304"><path
+   id="path306"
+   style="fill:#c8c6c4;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   d="M 0,-0.49999997 H 0.99999994 V 0.49999997 H 0 m 5.9999995,-0.99999994 h 1 v 0.99999994 h -1 m 5.9999995,-0.99999994 h 1 v 0.99999994 h -1 m 5.999999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999998,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999996,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999998,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.99999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.99999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1" /><text
+                id="text310"
+                style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+                transform="translate(-66.1875,5.125)"><tspan
+     id="tspan308"
+     y="0"
+     x="0 8.6250076 12.09376 20.718767 25.101583 39.468769 43.343777 52.718784"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:15.99999998px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">0,0 Mio.</tspan></text>
+</g><g
+                transform="matrix(3.1250002,0,0,3.1250002,2585.6252,1272.9893)"
+                id="g312"><path
+   id="path314"
+   style="fill:#c8c6c4;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   d="M 0,-0.49999997 H 0.99999994 V 0.49999997 H 0 m 5.9999995,-0.99999994 h 1 v 0.99999994 h -1 m 5.9999995,-0.99999994 h 1 v 0.99999994 h -1 m 5.999999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999998,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999996,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999998,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.99999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.99999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1" /><text
+                id="text318"
+                style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+                transform="translate(-66.1875,5.125)"><tspan
+     id="tspan316"
+     y="0"
+     x="0 8.6250076 12.09376 20.718767 25.101583 39.468769 43.343777 52.718784"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:15.99999998px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">0,5 Mio.</tspan></text>
+</g><g
+                transform="matrix(3.1250002,0,0,3.1250002,2585.6252,933.79089)"
+                id="g320"><path
+   id="path322"
+   style="fill:#c8c6c4;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   d="M 0,-0.49999997 H 0.99999994 V 0.49999997 H 0 m 5.9999995,-0.99999994 h 1 v 0.99999994 h -1 m 5.9999995,-0.99999994 h 1 v 0.99999994 h -1 m 5.999999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999998,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999996,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999998,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.99999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.99999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1" /><text
+                id="text326"
+                style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+                transform="translate(-66.1875,5.125)"><tspan
+     id="tspan324"
+     y="0"
+     x="0 8.6250076 12.09376 20.718767 25.101583 39.468769 43.343777 52.718784"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:15.99999998px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1,0 Mio.</tspan></text>
+</g><g
+                transform="matrix(3.1250002,0,0,3.1250002,2585.6252,594.59259)"
+                id="g328"><path
+   id="path330"
+   style="fill:#c8c6c4;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   d="M 0,-0.49999997 H 0.99999994 V 0.49999997 H 0 m 5.9999995,-0.99999994 h 1 v 0.99999994 h -1 m 5.9999995,-0.99999994 h 1 v 0.99999994 h -1 m 5.999999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999998,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999996,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.999998,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.99999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 5.99999,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1 m 6,-0.99999994 h 1 v 0.99999994 h -1" /><text
+                id="text334"
+                style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+                transform="translate(-66.1875,5.125)"><tspan
+     id="tspan332"
+     y="0"
+     x="0 8.6250076 12.09376 20.718767 25.101583 39.468769 43.343777 52.718784"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:15.99999998px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1,5 Mio.</tspan></text>
+</g><g
+                transform="matrix(3.1250002,0,0,3.1250002,3324.063,1922.5001)"
+                id="g336"><text
+   id="text340"
+   style="font-variant:normal;font-weight:normal;font-size:29.33px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#252423;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-22.625)"><tspan
+     id="tspan338"
+     y="0"
+     x="0 16.111439 22.641953 31.592766"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.32999988px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">City</tspan></text>
+</g><g
+                transform="matrix(0,-3.1250002,3.1250002,0,2585.6252,268.75003)"
+                id="g342"><text
+   id="text346"
+   style="font-variant:normal;font-weight:normal;font-size:29.33px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#252423;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-277.23438,-76.0625)"><tspan
+     id="tspan344"
+     y="0"
+     x="0 15.180557 29.501839 43.765839 58.230331 65.90654 79.583359 88.534172 95.064667 109.38595"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.32999988px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Population</tspan></text>
+</g></g></g><g
+                id="g348"><g
+           clip-path="url(#clipPath354)"
+           id="g350"><g
+             transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,2741.0859,1613.7501)"
+             id="g356"><text
+   id="text360"
+   style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-61.640625,8)"><tspan
+     id="tspan358"
+     y="0"
+     x="0 9.9375038 13.812512 22.179695 31.234385 40.28907"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16.0000007px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Vienna</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,2935.4116,1613.7501)"
+                id="g362"><text
+   id="text366"
+   style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-45.125,8)"><tspan
+     id="tspan364"
+     y="0"
+     x="0 10.97656 16.539057 24.67968"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16.0000007px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Graz</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,3129.7373,1613.7501)"
+                id="g368"><text
+   id="text372"
+   style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-40.90625,8)"><tspan
+     id="tspan370"
+     y="0"
+     x="0 7.5312481 11.406256 20.460943"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16.0000007px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Linz</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,3324.063,1613.7501)"
+                id="g374"><text
+   id="text378"
+   style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-74.40625,8)"><tspan
+     id="tspan376"
+     y="0"
+     x="0 8.5 16.640623 20.515633 27.75 37.156258 46.210945 51.773441"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16.0000007px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Salzburg</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,3518.3887,1613.7501)"
+                id="g380"><text
+   id="text384"
+   style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-81.734375,8)"><tspan
+     id="tspan382"
+     y="0"
+     x="0 4.2578082 13.312496 22.367184 29.15624 38.562496 44.124992 53.17968 60.570305"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16.0000007px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Innsbruck</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,3712.7144,1613.7501)"
+                id="g386"><text
+   id="text390"
+   style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-86.390625,8)"><tspan
+     id="tspan388"
+     y="0"
+     x="0 9.2812481 13.156256 21.296881 30.718752 39.085938 48.140625 53.148434 62.203121 67.765617"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16.0000007px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Klagenfurt</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,3907.04,1613.7501)"
+                id="g392"><text
+   id="text396"
+   style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-59.359375,8)"><tspan
+     id="tspan394"
+     y="0"
+     x="0 9.9375038 13.812512 17.687519 21.562529 29.703152 37.093777"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16.0000007px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Villach</tspan></text>
+</g></g></g><g
+                id="g398"><g
+           clip-path="url(#clipPath404)"
+           id="g400"><g
+             transform="matrix(3.1250002,0,0,3.1250002,2585.6252,268.75003)"
+             id="g406"><path
+               id="path408"
+               style="fill:#118dff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               d="m 24.873684,1 h 48.47179 v 428.39999 h -48.47179 z" /><path
+                id="path410"
+                style="fill:#12239e;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="M 87.057892,366.56635 H 135.52969 V 429.4 H 87.057892 Z" /><path
+                id="path412"
+                style="fill:#e66c37;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="m 149.24211,383.77594 h 48.47179 v 45.62408 h -48.47179 z" /><path
+                id="path414"
+                style="fill:#6b007b;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="m 211.42632,395.74698 h 48.47179 v 33.65305 h -48.47179 z" /><path
+                id="path416"
+                style="fill:#e044a7;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="m 273.61053,400.63751 h 48.4718 v 28.76251 h -48.4718 z" /><path
+                id="path418"
+                style="fill:#744ec2;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="m 335.79474,407.38672 h 48.4718 v 22.01327 h -48.4718 z" /><path
+                id="path420"
+                style="fill:#d9b300;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="m 397.97894,415.26178 h 48.4718 v 14.13821 h -48.4718 z" /></g></g></g></g></g></svg>
+
+            <!--#endregion -->
+          </div>
+          <figcaption>
+            Wide version of bar chart created in Power BI.<br/>
+          </figcaption>
+        </figure>
+        <figure>
+          <div class="images" id="power_bi_small">
+            <!--#region power_bi_small -->
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <svg
+                viewBox="0 0 277 346"
+                xml:space="preserve"
+                id="svg2"
+                version="1.1"
+                sodipodi:docname="BarChartPowerBi_Small.svg"
+                inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:svg="http://www.w3.org/2000/svg"
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:cc="http://creativecommons.org/ns#"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"><sodipodi:namedview
+     id="namedview461"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="0.91597284"
+     inkscape:cx="163.76031"
+     inkscape:cy="99.893791"
+     inkscape:window-width="1488"
+     inkscape:window-height="752"
+     inkscape:window-x="2108"
+     inkscape:window-y="71"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" /><metadata
+                id="metadata8"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+                rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+                id="defs6"><clipPath
+       id="clipPath18"
+       clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path16"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath32"
+                clipPathUnits="userSpaceOnUse"><path
+         id="path30"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath38"
+                clipPathUnits="userSpaceOnUse"><path
+         id="path36"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath44"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path42"
+         d="M 4075.0002,75.000008 H 75.000008 V 2325.0002 H 4075.0002 Z m -3.125,109.375012 H 78.125008 V 575.00006 H 4071.8752 Z" /></clipPath><clipPath
+                id="clipPath50"
+                clipPathUnits="userSpaceOnUse"><path
+         id="path48"
+         d="M 73,180 H 4077 V 581 H 73 Z" /></clipPath><mask
+                id="mask52"
+                height="1"
+                width="1"
+                y="0"
+                x="0"
+                maskUnits="userSpaceOnUse"><g
+         id="g60"><g
+           style="opacity:0.1098"
+           id="g58"
+           clip-path="url(#clipPath50)"><g
+             id="g56"
+             transform="matrix(4004,0,0,-401,73,581)"><image
+               id="image54"
+               xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAD6QAAAGRCAYAAAB4jewtAAAABHNCSVQICAgIfAhkiAAAH+dJREFUeJzs3b2KFd0WhtG3VtXuv0BBtFETAxMzvf/UqzAxMmgQGvwBofeuqhM03ecceMMG+T7GgBWsooI1L+BhTofDYd/3Pfu+Z9u27PueB9M0/d8dAAAAAAAAAAAAAAAAAACAf4cxRrZte7wvy5LT6ZRlWTJNU9Z1zfIQoT+E52OMTNOUaZqSJIfD4a88HgAAAAAAAAAAAAAAAAAAgKe1rmvGGJnn+TE6P51OSZJ5nrOua9Z1TZLs+57lIUYfY+T8/DxXV1c5Pz/PPM/Z9/0xTAcAAAAAAAAAAAAAAAAAAOCfbV3XzPOcMUaSZNu2nE6nHI/HHI/HjDFyd3f3GKkvyf1W9MvLy1xfX+ft27d5+fJlLi4ukuRxczoAAAAAAAAAAAAAAAAAAAD/bA9B+jRN2bYtyX2U/uvXr/z8+TM3Nze5vb3Njx8/kiTLGCPLsuTZs2d59+5dPn78mPfv3+f58+cZY+RwOPzNeQAAAAAAAAAAAAAAAAAAAHgi27ZlWZbs+57T6ZQxRvZ9z/fv33Nzc5PPnz9n27b8+fMnp9PpvxvSr66u8vr163z48CGfPn3Kq1evMsbIPM9/eyYAAAAAAAAAAAAAAAAAAACewLquOTs7y7Ztubu7e4zTv337lq9fv+bLly+5vb3NGCPTNGXZ9z37vmeMkcvLy7x48SJv3rzJ9fV1pmnKvu9/eyYAAAAAAAAAAAAAAAAAAACewLquOT8/z+l0yt3dXQ6HQ/Z9z+/fv3N5eZmrq6uMMbKu6/029W3b8nCSZJ7nLMuSeZ7vi/Vl+csjAQAAAAAAAAAAAAAAAAAA8JQemvLD4ZAkubi4eGzM13XN8Xi8/2+e54wxMsZIkseN6P/7DQAAAAAAAAAAAAAAAAAAgH+H0+mUZVlyOBxyPB4zTVMOh0O2bcs8z1nXNWdnZ9m2LYpzAAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAPynvXtZcSPLojC84iJhSOOB3//dDB5ZAye+CFIZiksNTKq7YA2r2rj5PojJYROc8wA/GwCoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABAJUgHAAAAAAAAAAAAAAAAAACgEqQDAAAAAAAAAAAAAAAAAABQCdIBAAAAAAAAAAAAAAAAAACoBOkAAAAAAAAAAAAAAAAAAABUgnQAAAAAAAAAAAAAAAAAAAAqQToAAAAAAAAAAAAAAAAAAACVIB0AAAAAAAAAAAAAAAAAAIBKkA4AAAAAAAAAAAAAAAAAAEAlSAcAAAAAAAAAAAAAAAAAAKASpAMAAAAAAAAAAAAAAAAAAFAJ0gEAAAAAAAAAAAAAAAAAAKgE6QAAAAAAAAAAAAAAAAAAAFSCdAAAAAAAAAAAAAAAAAAAACpBOgAAAAAAAAAAAAAAAAAAAJUgHQAAAAAAAAAAAAAAAAAAgEqQDgAAAAAAAAAAAAAAAAAAQCVIBwAAAAAAAAAAAAAAAAAAoBKkAwAAAAAAAAAAAAAAAAAAUAnSAQAAAAAAAAAAAAAAAAAAqATpAAAAAAAAAAAAAAAAAAAAVIJ0AAAAAAAAAAAAAAAAAAAAKkE6AAAAAAAAAAAAAAAAAAAAlSAdAAAAAAAAAAAAAAAAAACASpAOAAAAAAAAAAAAAAAAAABANY/jryb9OI6M45jz+Zx5nrPve5Zlybt3737zFQEAAAAAAAAAAAAAAAAAAPgnrOua0+mUJLnf75nn+W/n67pmGIYsy5IkmZdlyel0yrZt2bYt9/s967pm3/ckyTAMv+clAAAAAAAAAAAAAAAAAAAA/GvGccwwDNn3PcdxPNryt/PjODK/Db8N3u/3LMuSbdseZwAAAAAAAAAAAAAAAAAAAPz5tm17bEg/jiPHcWRd10dfvm1bpmnKPM+/NqgPw5B5njOOY9Z1zc+fP/P8/Jxpmh6DAAAAAAAAAAAAAAAAAAAA/PmWZcn5fH5sQB+GIa+vr/n69Wuu12teXl6y73umafoVpB/HkX3fH0OfPn3K+XzOx48fM8+zDekAAAAAAAAAAAAAAAAAAAD/J9Z1zTRNGYbh8d1ut1wul1wulzw/P+f19fUxPye/Kvbv37/n8+fPGYYhX758ydPTU6ZpyrZtv+0xAAAAAAAAAAAAAAAAAAAA/LPelpqP45hxHLMsS759+5YfP37kcrnker0+ZoYkR5KcTqe8f/8+Hz58yNPTU+Z5fqxZBwAAAAAAAAAAAAAAAAAA4M83TVPu93v2fc80TZmmKeu65na7ZVmWXK/XLMuSl5eXbNuW4XQ6HW91+jRNmec54zgmyeMnAAAAAAAAAAAAAAAAAAAA/PnO53Nut1u2bcs8z5mmKdu2ZV3XHMeRbduSJNu25TiO/2xI/2/DMGQYhv/13QEAAAAAAAAAAAAAAAAAAPiN3pahv/kL737lY+nvGGgAAAAASUVORK5CYII="
+               transform="matrix(1,0,0,-1,0,1)"
+               preserveAspectRatio="none"
+               style="image-rendering:optimizeSpeed"
+               height="1"
+               width="1" /></g></g></g></mask><clipPath
+                id="clipPath70"
+                clipPathUnits="userSpaceOnUse"><path
+         id="path68"
+         d="M 65,183 H 4085 V 599 H 65 Z" /></clipPath><mask
+                id="mask72"
+                height="1"
+                width="1"
+                y="0"
+                x="0"
+                maskUnits="userSpaceOnUse"><g
+         id="g80"><g
+           style="opacity:0.1294"
+           id="g78"
+           clip-path="url(#clipPath70)"><g
+             id="g76"
+             transform="matrix(4020,0,0,-416,65,599)"><image
+               id="image74"
+               xlink:href="data:image/png;base64,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AQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAACA/7R3b7mNG1sYRjeLlJMAecr8JxkktnnXeQiKKcmyJXf3dhKctQCCtG6kB/DhBwAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAADH6YK0AAAKBklEQVQAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSCNoBAAAAAAAAAAAAAAAAAABIIWgHAAAAAAAAAAAAAAAAAAAghaAdAAAAAAAAAAAAAAAAAACAFIJ2AAAAAAAAAAAAAAAAAAAAUgjaAQAAAAAAAAAAAAAAAAAASCFoBwAAAAAAAAAAAAAAAAAAIIWgHQAAAAAAAAAAAAAAAAAAgBSCdgAAAAAAAAAAAAAAAAAAAFII2gEAAAAAAAAAAAAAAAAAAEghaAcAAAAAAAAAAAAAAAAAACCFoB0AAAAAAAAAAAAAAAAAAIAUgnYAAAAAAAAAAAAAAAAAAABSDI98qOu66Ps+hmGIYRii7/voui66rouIiPP5fBz7vse2bbGua/R9H/u+R9d1se/7cd113fH5vu9T/0EAAAAAAAAAAAAAAAAAAID/F7UB/1a1C9/3/eI3u66LUj6/t/5Q0B7xV7Rez+11+wDt9fVrt9SwHQAAAAAAAAAAAAAAAAAAgHyPNOC3evFvDeXvBu1tcH4rPn8vXL9+yFvfq4vuAAAAAAAAAAAAAAAAAAAA/HNuDaBf//0tUftDQftHR/3Mve+2f7fvAwAAAAAAAAAAAAAAAAAA8DXu9eM/ugG/G7S3D3XrAfd9P871un1927aIiCilRCnlKO/r5/q+/6H/EAAAAAAAAAAAAAAAAAAAALdt2xb7vh/netS/r9vx9jP7vn/6ft+90L5t28VD3zoi4iJkr1Py7TUAAAAAAAAAAAAAAAAAAAC5tm2LdV2Pcz3a1z86PuuhoP3WdfvAHz3cuq5HuH4dr9ciHwAAAAAAAAAAAAAAAAAAgHzvxeuPxOwpQXvE7ai9LrR/NBdfj67rYtu2KKXEtm0XC+3f8tAAAAAAAAAAAAAAAAAAAAB8Xm28932/CNXr3+814/X4rKGUckTqXdcdYXpdVC+lRCnleLh934/Z+GVZjgdbliXmeY5pmuLp6Smenp6i7/vYtu0ifi+lvFlqBwAAAAAAAAAAAAAAAAAAIN+yLEcrXs/TNMU8z7Gua8zzfDFq3o6gD8NwLLnX0fSIvzv0W2Podxfaa4x+vcheb1Ifsh41ah+Gv3+6lBJ930ff90fQXuN5AAAAAAAAAAAAAAAAAAAAvkbbiNfzPM8XvXjbj9ex9LrkXrvzRz0ctLeT8e1Ce43Xx3GM19fXGIbhiNbrcvt10F4X3wEAAAAAAAAAAAAAAAAAAPhabdC+rmuM4/jmqKvt11F7HVCvx/XA+rW7QXu7yF5j9lrWD8MQ8zzH6XSKaZpiHMfo+z4i/grh53mOX3755eZCOwAAAAAAAAAAAAAAAAAAAF/rfD4fw+a1H5+mKV5fX48R9FtBe43Z26j9o5C9emihvf5ojdmvg/a60H46naLruuM7T09Pse/7screrrcDAAAAAAAAAAAAAAAAAADwteoQeg3at217E7TX6xq0txF7/c6tsP2Wb1porzee5znGcYyu645YvT58XW5flsVCOwAAAAAAAAAAAAAAAAAAwL9AbcbXdT068hq0T9MUz8/PF2H7NE0Xa+21P390pf2hhfbz+fymll+WJYZhiOfn52OFPSKOmH2apjidTvHy8nIRtPd9L2gHAAAAAAAAAAAAAAAAAAD4B5zP51jX9WJlfZ7ni4X2cRzj+fk5Xl5ejr9r2P5oyF49HLS3YXt7TNMUpZQ4nU5RSrlYdD+dTtF13ZuF9hq/AwAAAAAAAAAAAAAAAAAA8HW6rrsYQm+D9hqtj+N4EbHP83wc1/35vah92Pf9uHFEHNF6/dL1Ont9b1mW+OOPP+K33347FttfX1/j559/jp9++imGYYhSSvz666/Hb3ddd3EdEeJ2AAAAAAAAAAAAAAAAAACAL/L6+hoRf3fk67oex77v8fvvv8e6rkfk/vLyEuM4xrquERHx559/HiPprVLKEcu37i60t9pl9m3bouu6GMcxhmG4COC3bTuC9jaYvxW2C9oBAAAAAAAAAAAAAAAAAAC+xjRNEXE5jN4G7TVen+f5WGev523b3qyy31tpvxu01y+3IfuyLNF1XZzP53h+fo5hGGJZlliWJaZpitPpFMMwRNd1MQx/3eK9oL2eAQAAAAAAAAAAAAAAAAAAyFUX1NugvUbtbdC+LEuM4xjjOF4E7bU7r9//KGaPeHChvX2YGrPXh933Pfq+P4L2GrOXUo7jo5Bd0A4AAAAAAAAAAAAAAAAAAPA12qD9fD4fQXttx5dlOc7tOvuyLBdBexu219+75eGF9oiIdV2P1/d9j1LKEbTX6n4Yhuj7/ojXT6fT8Z36mogdAAAAAAAAAAAAAAAAAADg67UD6Ncr7W2oXsfSl2WJdV2P99tzbdHrcasjfyhoj4g3dfy2bVFKifP5HKWUI2SvMXvEXwH709PThwvtH83HAwAAAAAAAAAAAAAAAAAA8OO0I+gRcRGp7/t+vLbve6zrehGztyF7G79Xt9rxu0F7/WIt4ut1XWivQfu6rlFKiVLKxXefnp4iIt6N2tsHBAAAAAAAAAAAAAAAAAAAIM91dN6utF8PpLdHHVCv5/a6+q6F9vqjpZTYtu3iva7rjsX29ib1QdubC9oBAAAAAAAAAAAAAAAAAAD+GW3vHREXa+u1KW9fa9fZ2/dvrbHfvF9EfPjJurh+HaLX69Pp9Obh23+g7/vH/nMAAAAAAAAAAAAAAAAAAABS3Rssr+/XiL1dZo+IWNf1U/e7u9DeOp/PR6xer7dte3d9HQAAAAAAAAAAAAAAAAAAgH+Pe0H79Up7e350lb11d6H9vWX262D9vc8I2wEAAAAAAAAAAAAAAAAAAP4d7kXpbbx+HbZ/i7sL7fd+eNu2iBCyAwAAAAAAAAAAAAAAAAAA/NfVBfc2aP8ed4P2erOu646b1ev2tfY9MTsAAAAAAAAAAAAAAAAAAMB/Tw3af5SHgvaI+0vt733ue4t7AAAAAAAAAAAAAAAAAAAAfoxSytfe71u+dL3K/h5L7QAAAAAAAAAAAAAAAAAAAP+/Ph20P7q4LmYHAAAAAAAAAAAAAAAAAAD47+u67jg+639tIzu7VTus7gAAAABJRU5ErkJggg=="
+               transform="matrix(1,0,0,-1,0,1)"
+               preserveAspectRatio="none"
+               style="image-rendering:optimizeSpeed"
+               height="1"
+               width="1" /></g></g></g></mask><clipPath
+                id="clipPath92"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path90"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath110"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path108"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath122"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path120"
+         d="M 240.62503,75.000008 H 1106.2501 V 1156.2501 H 240.62503 Z" /></clipPath><clipPath
+                id="clipPath136"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path134"
+         d="M 256.25003,175.00002 H 1090.6251 V 275.00004 H 256.25003 Z" /></clipPath><clipPath
+                id="clipPath150"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path148"
+         d="M 256.25003,284.37503 H 1090.6251 V 1140.6251 H 256.25003 Z" /></clipPath><clipPath
+                id="clipPath202"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path200"
+         d="M 256.25003,284.37503 H 1090.6251 V 1139.3751 H 256.25003 Z" /></clipPath><clipPath
+                id="clipPath252"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path250"
+         d="M 533.75006,309.37503 H 1090.6251 V 855.62515 H 533.75006 Z" /></clipPath><clipPath
+                id="clipPath276"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path274"
+         d="M 75.000008,75.000008 H 4075.0002 V 2325.0002 H 75.000008 Z" /></clipPath><clipPath
+                id="clipPath288"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path286"
+         d="M 2265.6252,131.25001 H 4062.5004 V 231.25003 H 2265.6252 Z" /></clipPath><clipPath
+                id="clipPath302"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path300"
+         d="M 2265.6252,243.75003 H 4062.5004 V 1940.6251 H 2265.6252 Z" /></clipPath><clipPath
+                id="clipPath354"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path352"
+         d="M 2265.6252,243.75003 H 4062.5004 V 1940.0001 H 2265.6252 Z" /></clipPath><clipPath
+                id="clipPath404"
+                clipPathUnits="userSpaceOnUse"><path
+         style="clip-rule:evenodd"
+         id="path402"
+         d="M 2585.6252,268.75003 H 4062.5004 V 1613.7501 H 2585.6252 Z" /></clipPath></defs><g
+                transform="matrix(0.31999998,0,0,0.31999998,0,1.9199999e-5)"
+                id="g10"
+                style="display:inline"><g
+       id="g101554"
+       transform="translate(-240.62503,-75.000068)"><g
+         id="g104"><g
+           clip-path="url(#clipPath110)"
+           id="g106"><g
+             transform="matrix(3.1250002,0,0,3.1250002,240.62503,75.000008)"
+             id="g112"><path
+               id="path114"
+               style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               d="M 0,0 H 277 V 346 H 0 Z" /></g></g></g><g
+                id="g116"><g
+           clip-path="url(#clipPath122)"
+           id="g118"><g
+             transform="matrix(3.1250002,0,0,3.1250002,240.62503,75.000008)"
+             id="g124"><text
+   id="text128"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30.66px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#252423;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   transform="translate(58.4375,26)"><tspan
+     id="tspan126"
+     y="0"
+     x="0 15.868942 30.839638 45.750458 60.870865 68.895157 83.192169 92.548866 99.375488 114.34618 129.69115 136.80225 151.77293"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30.66px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Population of</tspan></text>
+</g></g></g><g
+                id="g130"><g
+           clip-path="url(#clipPath136)"
+           id="g132"><g
+             transform="matrix(3.1250002,0,0,3.1250002,240.62503,75.000008)"
+             id="g138"><text
+   id="text142"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30.66px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#252423;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   transform="translate(48.28125,58)"><tspan
+     id="tspan140"
+     y="0"
+     x="0 17.485779 32.606186 46.888229 56.244926 67.742416 74.569046 88.866058 104.21102 111.32212 128.16414 134.99078 144.34747 151.1741 166.14479"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30.66px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Austrian Cities</tspan></text>
+</g></g></g><g
+                id="g144"><g
+           clip-path="url(#clipPath150)"
+           id="g146"><g
+             transform="matrix(3.1250002,0,0,3.1250002,533.75006,854.06262)"
+             id="g152"><path
+   id="path154"
+   style="fill:#c8c6c4;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   d="m 0,-0.5 h 1 v 1 H 0 m 6,-1 h 1 v 1 H 6 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1" /><text
+                id="text158"
+                style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                transform="translate(-66.1875,5.125)"><tspan
+     id="tspan156"
+     y="0"
+     x="0 8.6250076 12.09376 20.718767 25.101583 39.468769 43.343777 52.718784"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">0,0 Mio.</tspan></text>
+</g><g
+                transform="matrix(3.1250002,0,0,3.1250002,533.75006,717.24304)"
+                id="g160"><path
+   id="path162"
+   style="fill:#c8c6c4;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   d="m 0,-0.5 h 1 v 1 H 0 m 6,-1 h 1 v 1 H 6 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1" /><text
+                id="text166"
+                style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                transform="translate(-66.1875,5.125)"><tspan
+     id="tspan164"
+     y="0"
+     x="0 8.6250076 12.09376 20.718767 25.101583 39.468769 43.343777 52.718784"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">0,5 Mio.</tspan></text>
+</g><g
+                transform="matrix(3.1250002,0,0,3.1250002,533.75006,580.42358)"
+                id="g168"><path
+   id="path170"
+   style="fill:#c8c6c4;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   d="m 0,-0.5 h 1 v 1 H 0 m 6,-1 h 1 v 1 H 6 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1" /><text
+                id="text174"
+                style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                transform="translate(-66.1875,5.125)"><tspan
+     id="tspan172"
+     y="0"
+     x="0 8.6250076 12.09376 20.718767 25.101583 39.468769 43.343777 52.718784"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1,0 Mio.</tspan></text>
+</g><g
+                transform="matrix(3.1250002,0,0,3.1250002,533.75006,443.60406)"
+                id="g176"><path
+   id="path178"
+   style="fill:#c8c6c4;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   d="m 0,-0.5 h 1 v 1 H 0 m 6,-1 h 1 v 1 H 6 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1 m 6,-1 h 1 v 1 h -1" /><text
+                id="text182"
+                style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                transform="translate(-66.1875,5.125)"><tspan
+     id="tspan180"
+     y="0"
+     x="0 8.6250076 12.09376 20.718767 25.101583 39.468769 43.343777 52.718784"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">1,5 Mio.</tspan></text>
+</g><g
+                transform="matrix(3.1250002,0,0,3.1250002,812.1875,1129.3751)"
+                id="g184"><text
+   id="text188"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#252423;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   transform="translate(-12.34375)"><tspan
+     id="tspan186"
+     y="0"
+     x="0 8.7890558 12.351552 17.234367"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15.99999998px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">City</tspan></text>
+</g><g
+                transform="matrix(0,-3.1250002,3.1250002,0,533.75006,309.37503)"
+                id="g190"><text
+   id="text194"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#252423;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   transform="translate(-121.23438,-75.796875)"><tspan
+     id="tspan192"
+     y="0"
+     x="0 8.28125 16.093746 23.874994 31.765617 35.953121 43.414066 48.296883 51.859379 59.671875"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Population</tspan></text>
+</g></g></g><g
+                id="g196"><g
+           clip-path="url(#clipPath202)"
+           id="g198"><g
+             transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,592.36847,855.62512)"
+             id="g204"><text
+   id="text208"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   transform="translate(-61.640625,8)"><tspan
+     id="tspan206"
+     y="0"
+     x="0 9.9375038 13.812512 22.179695 31.234385 40.28907"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Vienna</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,665.64148,855.62512)"
+                id="g210"><text
+   id="text214"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   transform="translate(-45.125,8)"><tspan
+     id="tspan212"
+     y="0"
+     x="0 10.97656 16.539057 24.67968"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Graz</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,738.91455,855.62512)"
+                id="g216"><text
+   id="text220"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   transform="translate(-40.90625,8)"><tspan
+     id="tspan218"
+     y="0"
+     x="0 7.5312481 11.406256 20.460943"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Linz</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,812.1875,855.62512)"
+                id="g222"><text
+   id="text226"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   transform="translate(-74.40625,8)"><tspan
+     id="tspan224"
+     y="0"
+     x="0 8.5 16.640623 20.515633 27.75 37.156258 46.210945 51.773441"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Salzburg</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,885.46069,855.62512)"
+                id="g228"><text
+   id="text232"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+   transform="translate(-81.734375,8)"><tspan
+     id="tspan230"
+     y="0"
+     x="0 4.2578082 13.312496 22.367184 29.15624 38.562496 44.124992 53.17968 60.570305"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Innsbruck</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,958.73364,855.62512)"
+                id="g234"><text
+   id="text238"
+   style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-86.390625,8)"><tspan
+     id="tspan236"
+     y="0"
+     x="0 9.2812481 13.156256 21.296881 30.718752 39.085938 48.140625 53.148434 62.203121 67.765617"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16.0000007px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Klagenfurt</tspan></text>
+</g><g
+                transform="matrix(2.5598505,-1.7924266,1.7924266,2.5598505,1032.0067,855.62512)"
+                id="g240"><text
+   id="text244"
+   style="font-variant:normal;font-weight:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';writing-mode:lr-tb;fill:#605e5c;fill-opacity:1;fill-rule:nonzero;stroke:none;font-style:normal;font-stretch:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+   transform="translate(-59.359375,8)"><tspan
+     id="tspan242"
+     y="0"
+     x="0 9.9375038 13.812512 17.687519 21.562529 29.703152 37.093777"
+     style="-inkscape-font-specification:'sans-serif, Normal';font-family:sans-serif;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:16.0000007px;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Villach</tspan></text>
+</g></g></g><g
+                id="g246"><g
+           clip-path="url(#clipPath252)"
+           id="g248"><g
+             transform="matrix(3.1250002,0,0,3.1250002,533.75006,309.37503)"
+             id="g254"><path
+               id="path256"
+               style="fill:#118dff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               d="M 9.3789473,1 H 27.655867 V 173.8 H 9.3789473 Z" /><path
+                id="path258"
+                style="fill:#12239e;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="M 32.826317,148.45534 H 51.103241 V 173.8 H 32.826317 Z" /><path
+                id="path260"
+                style="fill:#e66c37;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="m 56.273685,155.397 h 18.27692 v 18.40299 h -18.27692 z" /><path
+                id="path262"
+                style="fill:#6b007b;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="m 79.721054,160.22566 h 18.276924 v 13.57433 H 79.721054 Z" /><path
+                id="path264"
+                style="fill:#e044a7;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="m 103.16842,162.19832 h 18.27692 V 173.8 h -18.27692 z" /><path
+                id="path266"
+                style="fill:#744ec2;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="m 126.61579,164.9207 h 18.27692 V 173.8 h -18.27692 z" /><path
+                id="path268"
+                style="fill:#d9b300;fill-opacity:1;fill-rule:nonzero;stroke:none"
+                d="m 150.06316,168.09718 h 18.27691 v 5.7028 h -18.27691 z" /></g></g></g></g></g></svg>
+
+            <!--#endregion -->
+          </div>
+          <figcaption>
+            Narrow version of bar chart created in Power BI.<br/>
+          </figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<section class="slide-tool-transformation-1">
+  <h1>MobileVisFixer</h1>
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <ul>
+        <li>Visualization transformation tool</li>
+        <li>Automatically transforms existing SVG based graphics into mobile friendly ones</li>
+        <li>Uses reinforcement-learning-based approach</li>
+        <li>Published in IEEE Transactions on Visualization and Computer Graphics 2021</li>
+        <li>Tool not publicly available</li>
+        <li>Short <a href="https://ieeexplore.ieee.org/document/9229072/media#media">demo video</a> is available.</li>
+      </ul>
+      <figure class="figure-tool-stat">
+        <img src="../../images/tools/mobile-vis-fixer.png" alt="MobileVisFixer example transformations"/>
+        <figcaption>
+          MobileVisFixer: Tailoring Web Visualizations for Mobile Phones
+          Leveraging an Explainable Reinforcement Learning Framework[Wu, Tong, Dwyer, Lee, Isenberg and Qu 2021]<br/>
+          <span class="credit">Copyright © 2021 IEEE and used under IEEE Thesis / Dissertation Reuse Rule</span>
+          <!--                and used under § 42f.(1) of Austrian copyright law-->
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+</section>
+
+
+
+<section class="slide-tool-transformation-2">
+  <h1>Setlur Line Chart Resize Algorithm</h1>
+  <div class="grid-long-figure-wrapper">
+    <div class="grid-long-figure">
+      <ul>
+        <li>Visualization transformation tool.</li>
+        <li>Implementation of algorithm via HTML, JavaScript and D3.</li>
+        <li>Source code not publicly available.</li>
+        <li>Based on cartographic generalization principles.</li>
+        <li>Automatically resizes line charts to fit different size requirements.</li>
+        <li>Algorithm:
+          <ol>
+            <li>Resize chart.</li>
+            <li>Identify elements.</li>
+            <li>Assign semantic importance.</li>
+            <li>Compute spatial metrics.</li>
+            <li>Apply generalization.</li>
+          </ol>
+        </li>
+      </ul>
+      <figure class="figure-tool-stat">
+        <img src="../../images/tools/setlur-line-resizer.png" alt="Setlur Line Chart Resizing Example"/>
+        <figcaption>
+          Semantic Resizing of Charts Through Generalization: A Case Study with Line Charts [Setlur and Chung 2021]<br/>
+          <span class="credit">Creative Commons Attribution 4.0 International (CC BY 4.0) licence</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+</section>
+<!--#endregion -->
+
+<!--#region outro -->
+<section class="slide-resources">
+  <h1>Resources</h1>
+  <p>
+    Responsive Visualization Tools Repository:<br/>
+    <a href="https://github.com/blindguardian50/responsive-visualization-tools">
+      https://github.com/blindguardian50/responsive-visualization-tools</a>
+    <br/><br/>
+    Responsive Visualization Tools Demos:<br/>
+    <a href="https://responsive-visualization-tools.netlify.app/">https://responsive-visualization-tools.netlify.app/</a>
+  </p>
+  <p>
+    RespVis Repository:<br/>
+    <a href="https://github.com/tugraz-isds/respvis">https://github.com/tugraz-isds/respvis</a>
+    <br/><br/>
+    RespVis Demos:<br/><a href="https://respvis.netlify.app/">https://respvis.netlify.app/</a>
+  </p>
+
+
+
+  <p>
+    Slides:<br/>
+    <a href="https://responsive-patterns-and-tools-slides.netlify.app">
+      https://responsive-patterns-and-tools-slides.netlify.app</a>
+  </p>
+</section>
+
+
+
+<section class="slide-references">
+  <h1>References</h1>
+  <p class="thebibliography">
+    Andrews, Keith [2018]. Responsive Visualisation. CHI 2018 Workshop on Data Visualization on Mobile
+    Devices (MobileVis 2018) (Montréal, Québec, Canada). 21 Apr 2018.
+    <a href="https://mobilevis.github.io/assets/mobilevis2018_paper_4.pdf" target="_blank">https://mobilevis.github.io/assets/mobilevis2018_paper_4.pdf</a>.
+  </p>
+  <p class="thebibliography">
+    Andrews, Keith, David Egger, and Peter Oberrauner [2023]. RespVis: A D3 Extension for Responsive SVG
+    Charts. Proc. 27th International Conference Information Visualisation (IV 2023) (Tampere, Finland).
+    25 Jul 2023, pages 19–22.
+    <a href="https://ieeexplore.ieee.org/document/10303589">doi:10.1109/IV60283.2023.00014</a>.
+    <a href="https://ftp.isds.tugraz.at/pub/papers/andrews-iv2023-respvis.pdf">https://ftp.isds.tugraz.at/pub/papers/andrews-iv2023-respvis.pdf</a>.
+  </p>
+  <p class="thebibliography">
+    Hernández, Juanma [2023]. World cities database. 31 Mar 2023.
+    <a href="https://www.kaggle.com/datasets/juanmah/world-cities" target="_blank">https://www.kaggle.com/datasets/juanmah/world-cities</a>.
+  </p>
+  <p class="thebibliography">
+    Hoffswell, Jane, Wilmot Li, and Zhicheng Liu [2020]. Techniques for Flexible Responsive Visualization
+    Design. Proc. ACM Conference on Human Factors in Computing Systems (CHI 2020) (Online). ACM,
+    25 Apr 2020, Paper 648, pages 1–13.
+    <a href="https://dl.acm.org/doi/10.1145/3313831.3376777" target="_blank">doi:10.1145/3313831.3376777</a>.
+    <a href="https://jhoffswell.github.io/website/resources/papers/2020-ResponsiveVisualization-CHI.pdf" target="_blank">https://jhoffswell.github.io/website/resources/papers/2020-ResponsiveVisualization-CHI.pdf</a>.
+  </p>
+  <p class="thebibliography">
+    Horak, Tom, Wolfgang Aigner, Matthew Brehmer, Alark Joshi, and Christian Tominski, [2021]. Responsive Visualization Design for Mobile Devices. In: Mobile Data Visualization.
+    Edited by Bongshin
+    Lee, Raimund Dachselt, Petra Isenberg, and Eun Kyoung Choe. CRC Press, 23 Dec 2021. Chapter 2,
+    pages 33–65. ISBN 0367534711. doi:10.1201/9781003090823-2. https://imld.de/cnt/uploads/Horak2021_Mo
+    bileDataVisBook_Chap02_Responsive.pdf .
+  </p>
+  <p class="thebibliography">
+    Kim, Hyeok, Dominik Moritz, and Jessica Hullman [2021]. Design Patterns and Trade-Offs in Responsive
+    Visualization for Communication. Computer Graphics Forum 40.3 (29 Jun 2021), pages 459–470.
+    <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.14321" target="_blank">doi:10.1111/cgf.14321</a>.
+    <a href="https://arxiv.org/abs/2104.07724" target="_blank">https://arxiv.org/abs/2104.07724</a>.
+  </p>
+  <p class="thebibliography">
+    Marcotte, Ethan [2010]. Responsive Web Design. 25 May 2010.
+    <a href="https://alistapart.com/article/responsive-web-design/" target="_blank">https://alistapart.com/article/responsive-web-design/</a>.
+  </p>
+  <p class="thebibliography">
+    Setlur, Vidya and Haeyong Chung [2021]. Semantic Resizing of Charts Through Generalization: A Case
+    Study with Line Charts. 2021 IEEE Visualization Conference (VIS 2021) (Online). IEEE, Oct 2021, pages 1–5.
+    <a href="https://ieeexplore.ieee.org/document/9623306" target="_blank">doi:10.1109/VIS49827.2021.9623306</a>.
+    <a href="https://www.vidyasetlur.com/recent-papers" target="_blank">https://www.vidyasetlur.com/recent-papers</a>
+  </p>
+  <p class="thebibliography">
+    Shadeed, Ahmad [2023]. The Guide To Responsive Design In 2023 and Beyond. 01 Feb 2023.
+    <a href="https://ishadeed.com/article/responsive-design/" target="_blank">https://ishadeed.com/article/responsive-design/</a>.
+  </p>
+  <p class="thebibliography">
+    Wu, Aoyu, Wai Tong, Tim Dwyer, Bongshin Lee, Petra Isenberg, and Huamin Qu [2021]. MobileVisFixer:
+    Tailoring Web Visualizations for Mobile Phones Leveraging an Explainable Reinforcement Learning
+    Framework. IEEE Transactions on Visualization and Computer Graphics 27.2 (Feb 2021), pages 464–
+    474.
+    <a href="https://ieeexplore.ieee.org/document/9229072" target="_blank">doi:10.1109/TVCG.2020.3030423</a>.
+    <a href="https://hal.inria.fr/hal-03001709/" target="_blank">https://hal.inria.fr/hal-03001709/</a>.
+  </p>
+</section>
+<!--#endregion -->
+
+</body>
 </html>

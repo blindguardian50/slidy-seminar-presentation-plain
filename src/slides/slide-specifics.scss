@@ -115,15 +115,15 @@
           flex-grow: 0;
           width: auto;
           #power_bi_large svg {
-            width: 20rem;
+            height: 20rem;
           }
           #power_bi_small svg {
-            width: 15rem;
+            height: 15rem;
           }
         }
       }
     }
-    @container (min-width: 55rem) {
+    @container (min-width: 65rem) {
       .grid-long-figure {
         grid-template-columns: 40rem 1fr;
         .figure-tool-stacked {
